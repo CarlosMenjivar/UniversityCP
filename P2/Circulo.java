@@ -56,7 +56,7 @@ public class Circulo
 	 *
 	 * @return Punto origen del círculo.
 	 */
-	public Punto getPunto() {
+	public Punto getOrigen() {
 		return this.origen;
 	}
 
