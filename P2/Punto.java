@@ -41,13 +41,13 @@ public class Punto
 
 	/**
 	 * Crea un punto leyendo dos datos double separados por un espacio
-         * desde la entrada estándar.
+         * usando el escaneador dado.
 	 *
+	 * @param scanner Escaneador de texto usado para obtener los parámetros.
 	 * @return Nuevo punto leído.
 	 */
-	public static Punto fromStd()
+	public static Punto fromScanner(Scanner scanner)
 	{
-		Scanner scanner = new Scanner(System.in);
 		return new Punto(scanner.nextDouble(), scanner.nextDouble());
 	}
 

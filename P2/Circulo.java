@@ -41,14 +41,14 @@ public class Circulo
 
 	/**
 	 * Crea un círculo leyendo los datos separados por un espacio desde
-	 * desde la entrada estándar.
+	 * desde el escaneador dado.
 	 *
+	 * @param scanner Escaneador de texto usado para obtener los parámetros.
 	 * @return Nuevo círculo leido.
 	 */
-	public static Circulo fromStd()
+	public static Circulo fromScanner(Scanner scanner)
 	{
-		Scanner scanner = new Scanner(System.in);
-		return new Circulo(Punto.fromStd(), scanner.nextDouble());
+		return new Circulo(Punto.fromScanner(scanner), scanner.nextDouble());
 	}
 
 	/**

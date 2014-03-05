@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
+import java.util.Scanner;
 
 /**
  * Clase principal del programa.
@@ -32,18 +33,15 @@ public class CalculaCirculoCentral
 	public static void main(String[] args)
 	{
 		// En primer lugar leemos dos círculos.
+		Scanner scanner = new Scanner(System.in);
 		System.out.println("Introduzca los parámetros de dos círculos.");
 		System.out.println("Siga el siguiente formato: origenX origenY radio");
 
 		System.out.print("Círculo 1: ");
-		Circulo c1 = Circulo.fromStd();
-		c1.print();
-		System.out.println();
+		Circulo c1 = Circulo.fromScanner(scanner);
 
 		System.out.print("Círculo 2: ");
-		Circulo c2 = Circulo.fromStd();
-		c2.print();
-		System.out.println();
+		Circulo c2 = Circulo.fromScanner(scanner);
 
 		// A continuación calculo el centro y el radio del círculo central.
 		Punto  origen = c1.getOrigen().calculaPuntoMedio(c2.getOrigen());
@@ -51,6 +49,7 @@ public class CalculaCirculoCentral
 
 		// Finalmente crea el círculo y lo muestra
 		Circulo central = new Circulo(origen, radio);
+		System.out.println();
 
 		System.out.print("El círculo central es ");
 		central.print();
