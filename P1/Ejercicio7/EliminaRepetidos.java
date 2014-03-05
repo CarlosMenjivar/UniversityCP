@@ -1,29 +1,44 @@
-/************************************************
- * Archivo P1/Ejercicio5/EliminaRepetidos.java  *
- * Código distribuido bajo licencia GPL V2      *
- *                                              *
- * Entorno:    vim                              *
- * Fecha:      26/02/2014                       *
- * Autor:      Benito Palacios Sánchez          *
- * Asignatura: Complementos de Programación     *
- * Práctica:   1                                *
- * Ejercicio:  07                               *
- *                                              *
- * Resumen:                                     *
- * Lee un conjunto de números de la entrada y   *
- * devuelve el mayor de entre ellos.            *
- ***********************************************/
+/*
+ * Práctica 1 - Ejercicio 7
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ */
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
 
-public class EliminaRepetidos {
+/**
+ * Clase principal del programa.
+ * Lee un conjunto de números de la entrada y elimina los elementos repetidos.
+ *
+ * @author  Benito Palacios Sánchez
+ * @version 1.1, 05/03/2014
+ */
+public class EliminaRepetidos
+{
 	private static Scanner Coin = new Scanner(System.in);
 
-	public static void main(String[] args) {		
+	/**
+	 * Método de entrada del programa.
+	 * 
+	 * @param args Argumentos pasado al programa. No usado.
+	 */
+	public static void main(String[] args)
+	{		
 		// Pide el número de elementos
 		int numElementos = leeNumero(
-			"Introduzca el número de elementos a procesar (máximo 100): ");
+					"Introduzca el número de elementos a procesar (máximo 100): ");
 		if (numElementos < 0) {
 			System.out.println("¡Ha de ser positivo!");
 			return;
@@ -41,12 +56,12 @@ public class EliminaRepetidos {
 		// Elimina los repetidos (como máximo contendrá todos)
 		ArrayList<Integer> noRepetidos = new ArrayList<Integer>(numElementos);
 		for (int i = 0; i < numElementos; i++) {
-			// Método 1 (recomendado)
+			// Método 1 (recomendado) -> usando método "contains".
 			if (!noRepetidos.contains(elementos[i]))
 				noRepetidos.add(elementos[i]);
 
 /*
-			// Método 2
+			// Método 2 -> recorriendo la lista para comprobar si el elemento ya está.
 			boolean repetido = false;
 			for (int k = 0; k < noRepetidos.size() && !repetido; k++) {
 				if (noRepetidos.get(k) == elementos[i])
@@ -76,17 +91,24 @@ public class EliminaRepetidos {
 		}
 	}
 
-	public static int leeNumero(String mensaje) {
+	/*
+	 * Lee un número de la entrada estándar.
+	 * Si se produce un error continúa intentándolo.
+	 */
+	private static int leeNumero(String mensaje)
+	{
 		int resultado = 0;
 
+		// Mientras no se haya introducido una cadena correcta.
 		boolean valido = false;
 		while (!valido) {
 			System.out.print(mensaje);
+			
 			try {
 				resultado = Coin.nextInt();
 				valido = true;
 			} catch (InputMismatchException ex) {
-				Coin.nextLine();	// Elimina esa línea del buffer
+				Coin.nextLine();	// Elimina esa línea del buffer.
 			}	
 		}
 
