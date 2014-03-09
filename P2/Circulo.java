@@ -35,7 +35,7 @@ public class Circulo
 	 */
 	public Circulo(Punto origen, double radio)
 	{
-		this.origen = origen;
+		this.origen = new Punto(origen.getX(), origen.getY());
 		this.radio  = radio;
 	}
 
