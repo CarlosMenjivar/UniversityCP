@@ -8,3 +8,14 @@
 # Personal info
 *.pdf
 comprimir.sh
+
+# Proyectos con NetBeans
+**/build
+**/dist
+**/nbproject/private
+
+# Código sin derechos
+P3/example/**
+P3/serpiente/**
+P3/Netbeans Test/**
+
