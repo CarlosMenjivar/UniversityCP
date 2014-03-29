@@ -155,13 +155,14 @@ public class Poligono
      * 
      * @return Área del polígono.
      */
-    public double getArea() {        
+    public double getArea() {     
+        final Punto ptInt = this.getPuntoInterior();
         double area = 0;
+                    
         for (int i = 0; i < this.numVertices; i++) {
-            final Punto ptInt = this.getPuntoInterior();
             final Punto ptSig = (i == this.numVertices - 1) ?
                                    this.vertices[0] : this.vertices[i+1];
-            area += this.getAreaTriangulo(this.vertices[i], ptSig, ptInt);
+            area += Poligono.getAreaTriangulo(this.vertices[i], ptSig, ptInt);
         }
  
         // Redondea al tercer digito
@@ -171,7 +172,7 @@ public class Poligono
     /*
      * Cálcula y devuelve el área de un triángulo a partir de sus vértices.
      */
-    private double getAreaTriangulo(final Punto pt0, final Punto pt1, 
+    private static double getAreaTriangulo(final Punto pt0, final Punto pt1, 
                                     final Punto pt2) {
         if (pt0.equals(pt1) || pt0.equals(pt2) || pt1.equals(pt2)) {
             return 0;
