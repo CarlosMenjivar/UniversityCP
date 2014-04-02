@@ -45,8 +45,8 @@ public class Problema {
      * 
      * @param ciudades Ciudades que definen un problema.
      */
-    public Problema(Ciudad[] ciudades) {
-        this.ciudades = ciudades;
+    public Problema(final Ciudad[] ciudades) {
+        this.ciudades   = ciudades;
         this.distancias = CalculaDistancias(ciudades);
     }
     
@@ -94,7 +94,7 @@ public class Problema {
      * @param index Índice de la ciudad a devolver
      * @return Ciudad
      */
-    public Ciudad getCiudad(int index) {
+    public Ciudad getCiudad(final int index) {
         return this.ciudades[index];
     }
     
@@ -113,7 +113,7 @@ public class Problema {
      * @param ciudades Ciudades a analizar.
      * @return Distancia entre ciudades.
      */
-    private static double[][] CalculaDistancias(Ciudad[] ciudades) {
+    private static double[][] CalculaDistancias(final Ciudad[] ciudades) {
         double[][] distancias = new double[ciudades.length][ciudades.length];
         
         // TODO: Calcula la distancia de la mitad de las ciudades pues la del

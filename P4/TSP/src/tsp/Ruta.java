@@ -51,7 +51,7 @@ public class Ruta {
      * 
      * @param numCiudades Número de ciudades que contendrá la ruta.
      */
-    public Ruta(int numCiudades) {
+    public Ruta(final int numCiudades) {
         this.ruta = new Ciudad[numCiudades];
         this.primeraCiudad = -1;
         this.ultimaCiudad  = -1;
@@ -99,7 +99,7 @@ public class Ruta {
      * @param ciudad Ciudad a insertar.
      * @param pos Posición de la ruta donde se insertará la ciudad.
      */
-    public void insertCiudad(Ciudad ciudad, int pos) {
+    public void insertCiudad(final Ciudad ciudad, final int pos) {
         if (pos < 0 || pos > this.ruta.length)
             throw new ArrayIndexOutOfBoundsException(pos);
         

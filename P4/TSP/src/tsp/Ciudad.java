@@ -55,7 +55,7 @@ public class Ciudad {
      * @param reader Lector de datos de la ciudad.
      * @return Nueva ciudad
      */
-    public static Ciudad FromStdIn(Scanner reader) {
+    public static Ciudad FromStdIn(final Scanner reader) {
         return new Ciudad(
                 reader.nextInt(),
                 reader.nextDouble(),
