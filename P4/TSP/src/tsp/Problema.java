@@ -47,7 +47,7 @@ public class Problema {
      */
     public Problema(final Ciudad[] ciudades) {
         this.ciudades   = ciudades;
-        this.distancias = CalculaDistancias(ciudades);
+        this.distancias = calculaDistancias(ciudades);
     }
     
     /**
@@ -65,13 +65,13 @@ public class Problema {
      * 
      * @return Problema con las ciudades leídas.
      * @throws FormatMismatch Ocurre cuando la primera línea es inválida.
-     * La expresión regular a cumple es: DIMENSION:\s*(\d+)
+     * La expresión regular a cumple es: DIMENSION\s?:\s*(\d+)
      */
     public static Problema FromStdIn() throws FormatMismatch {
         Scanner reader = new Scanner(System.in);
         
         // Primer obtiene el número de ciudades
-        String numCiudadesRegex = "DIMENSION:\\s*(\\d+)";
+        String numCiudadesRegex = "DIMENSION\\s?:\\s*(\\d+)";
         reader.findInLine(numCiudadesRegex);
         
         MatchResult result = reader.match();
@@ -99,6 +99,15 @@ public class Problema {
     }
     
     /**
+     * Devuelve el conjunto de ciudades que componen el problema.
+     * 
+     * @return Ciudades del problema.
+     */
+    public Ciudad[] getCiudades() {
+        return (Ciudad[])this.ciudades.clone();
+    }
+    
+    /**
      * Devuelve el número de ciudades que compone el problema.
      * 
      * @return Número de ciudades del problema.
@@ -113,7 +122,7 @@ public class Problema {
      * @param ciudades Ciudades a analizar.
      * @return Distancia entre ciudades.
      */
-    private static double[][] CalculaDistancias(final Ciudad[] ciudades) {
+    private static double[][] calculaDistancias(final Ciudad[] ciudades) {
         double[][] distancias = new double[ciudades.length][ciudades.length];
         
         // TODO: Calcula la distancia de la mitad de las ciudades pues la del

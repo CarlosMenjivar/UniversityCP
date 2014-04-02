@@ -60,24 +60,31 @@ public class Ruta {
     /**
      * Devuelve el conjunto de ciudades que actualmente definen a la ruta.
      * Se devolverá una subarray con solo las ciudades insertadas.
+     * La última ruta será la ciudad inicial de nuevo para cerrar el recorrido.
      * 
      * @return Conjunto de ciudades que definen la ruta.
      */
     public Ciudad[] getRuta() {
         if (this.primeraCiudad == -1 || this.ultimaCiudad == -1)
             return null;
-          
-        Ciudad[] subruta = Arrays.copyOfRange(
-                this.ruta,
-                this.primeraCiudad,
-                this.ultimaCiudad + 1
-        );
+        
+        int length = this.ultimaCiudad - this.primeraCiudad + 1;
+        Ciudad[] subruta = new Ciudad[length + 1];
+        
+        // Copio todas las ciudades en el nuevo vector.
+        for (int i = 0; i < length; i++)
+            subruta[i] = this.ruta[i + this.primeraCiudad];
+        
+        // Pongo al final de la ruta la ciudad inicial de nuevo
+        // para cerrar el recorrido
+        subruta[length] = this.ruta[this.primeraCiudad];
         
         return subruta;
     }
     
     /**
      * Devuelve el coste total de la ruta actual.
+     * Incluye el coste de la última ciudad con la ciudad inicial.
      * 
      * @return Coste de la ruta actual.
      */
@@ -87,8 +94,12 @@ public class Ruta {
         
         double coste = 0;
         
+        // Le sumo el coste de cada ciudad con la siguiente.
         for (int i = this.primeraCiudad; i < this.ultimaCiudad; i++)
             coste += this.ruta[i].getDistancia(this.ruta[i + 1]);
+        
+        // Le sumo el coste de la última ciudad con la primera.
+        coste += this.ruta[this.ultimaCiudad].getDistancia(this.ruta[0]);
         
         return coste;
     }

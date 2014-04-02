@@ -29,9 +29,7 @@ import tsp.algoritmos.*;
  */
 public class TSP {
     /** Conjunto de algoritmos para resolver el problema soportados. */
-    private static final ITspAlgoritmo[] Algoritmos = new ITspAlgoritmo[] {
-        
-    };
+    private static final int NumAlgoritmos = 1;
     
     /**
      * Método de entrada del programa.
@@ -48,7 +46,7 @@ public class TSP {
         boolean muestraSolucion = false;
         boolean muestraRuta     = false;
         boolean muestraCoste    = false;
-        ITspAlgoritmo algoritmo = Algoritmos[0];
+        ITspAlgoritmo algoritmo = new VecinoMasCercano();
 
         // Lee los argumentos del programa.
         for (int i = 0; i < args.length; i++) {
@@ -62,14 +60,22 @@ public class TSP {
                         return;
                     }
 
+                    // Obtiene el número del algoritmo
                     int numAlgo = Integer.parseInt(args[i + 1]);
-                    if (numAlgo >= Algoritmos.length) {
+                    if (numAlgo >= NumAlgoritmos) {
                         muestraAyuda();
                         return;
                     }
 
-                    algoritmo = Algoritmos[numAlgo];
+                    // Crea una instancia del algoritmo
+                    switch (numAlgo) {
+                        
+                    }
                     break;
+                    
+                default:
+                    muestraAyuda();
+                    return;
             }
         }
 
@@ -139,7 +145,9 @@ public class TSP {
      * @param solucion Ruta encontrada.
      */
     private static void muestraCoste(Ruta solucion) {
-        System.out.println("MEJOR SOLUCIÓN: " + solucion.getCoste());
+        System.out.println(
+                String.format("MEJOR SOLUCIÓN: %.2f", solucion.getCoste())
+                );
     }
     
     /**
