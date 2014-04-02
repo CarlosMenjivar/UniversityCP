@@ -17,44 +17,50 @@
 
 package tsp;
 
+import java.util.Scanner;
+
 /**
  * Clase que representa una ciudad del problema (un vértice del grafo).
  * 
  * @version 1.0, 19/03/2014
  * @author  Benito Palacios Sánchez
  */
-public class Ciudad {
-    /**
-     * Variable que se irá incrementando cada vez que se llama el constructor
-     * y asignará un identificador único a cada instancia.
-     */
-    private static int AssignedId = 0;
-    
-    /**
-     * Coordenada X de la ciudad. Se asigna en el constructor.
-     */
+public class Ciudad {   
+    /** Coordenada X de la ciudad. Se asigna en el constructor. */
     private final double coordX;    // NOPMD
     
-    /**
-     * Coordenada Y de la ciudad. Se asigna en el constructor.
-     */
+    /** Coordenada Y de la ciudad. Se asigna en el constructor. */
     private final double coordY;    // NOPMD
     
-    /**
-     * Idenficador único de la clase ciudad. Se asigna en el constructor.
-     */
+    /** Idenficador único de la clase ciudad. Se asigna en el constructor. */
     private final int id;           // NOPMD
     
     /**
      * Crea una instancia a partir de la posición y su identificador.
      * 
+     * @param id Identificador único de la clase.
      * @param coordX Coordenada X de la ciudad.
      * @param coordY Coordenada Y de la ciudad.
      */
-    public Ciudad(final double coordX, final double coordY) {
+    public Ciudad(final int id, final double coordX, final double coordY) {
         this.coordX = coordX;
         this.coordY = coordY;
-        this.id     = AssignedId++;
+        this.id     = id;
+    }
+    
+    /**
+     * Crea una instancia de la ciudad leyendo los datos desde el lector
+     * {@link Scanner} dado.
+     * 
+     * @param reader Lector de datos de la ciudad.
+     * @return Nueva ciudad
+     */
+    public static Ciudad FromStdIn(Scanner reader) {
+        return new Ciudad(
+                reader.nextInt(),
+                reader.nextDouble(),
+                reader.nextDouble()
+        );
     }
     
     /**
@@ -91,6 +97,10 @@ public class Ciudad {
      * @return La distancia.
      */
     public double getDistancia(final Ciudad otra) {
+        if (this.getCoordX() == otra.getCoordX() &&
+            this.getCoordY() == otra.getCoordY())
+            return 0;
+        
         return Math.sqrt(
             (this.getCoordX() - otra.getCoordX()) * (this.getCoordX() - otra.getCoordX())
           + (this.getCoordY() - otra.getCoordY()) * (this.getCoordY() - otra.getCoordY())

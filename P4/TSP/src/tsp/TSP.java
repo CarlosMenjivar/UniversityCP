@@ -18,7 +18,8 @@
 package tsp;
 
 /**
- *
+ * Clase principal del programa donde se lee los argumentos y se ejecutan
+ * los algoritmos.
  * 
  * @version 1.0
  * @author  Benito Palacios Sánchez
@@ -26,10 +27,12 @@ package tsp;
 public class TSP {
 
     /**
-     * @param args the command line arguments
+     * Método de entrada del programa.
+     * 
+     * @param args Los argumentos de la consola.
      */
     public static void main(final String[] args) {
-        // TODO code application logic here
+        // TODO:
     }
     
 }

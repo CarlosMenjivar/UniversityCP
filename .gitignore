@@ -9,6 +9,9 @@
 *.pdf
 comprimir.sh
 
+# Archivos finales
+P4/Diagrama.png
+
 # Proyectos con NetBeans
 **/build
 **/dist

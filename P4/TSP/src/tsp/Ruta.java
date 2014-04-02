@@ -29,9 +29,7 @@ import java.util.Arrays;
  * @author  Benito Palacios Sánchez
  */
 public class Ruta {
-    /**
-     * Ciudades en orden ascendente que componen la ruta.
-     */
+    /** Ciudades en orden ascendente que componen la ruta. */
     private final Ciudad[] ruta;
     
     /**
