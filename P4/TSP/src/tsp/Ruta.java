@@ -17,7 +17,9 @@
 
 package tsp;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Clase que representa una ruta desde una ciudad origen y que pasa
@@ -30,7 +32,7 @@ import java.util.Arrays;
  */
 public class Ruta {
     /** Ciudades en orden ascendente que componen la ruta. */
-    private Ciudad[] ruta;
+    private final Ciudad[] ruta;
     
     /**
      * Índice de la primera ciudad que contiene la variable ruta.
@@ -58,6 +60,44 @@ public class Ruta {
     }
     
     /**
+     * Genera una ruta aleatoria.
+     * 
+     * @param ciudades Ciudades que conformarán la ruta.
+     * @return Ruta aleatoria
+     */
+    public static Ruta Aleatoria(List<Ciudad> ciudades) {
+        Ruta ruta = new Ruta(ciudades.size());
+        Random random = new Random();
+        
+        // Listas ir sacando ciudades y posiciones sin repetir.
+        List<Ciudad>  ciuSinVisitar = new ArrayList(ciudades);
+        List<Integer> posSinVisitar = new ArrayList(ciudades.size());
+
+        // Genero la lista de posiciones, gracias a esto aseguro que no
+        // establezco una ciudad en una posición ocupada por otra.
+        for (int i = 0; i < ciudades.size(); i++)
+            posSinVisitar.add(i);        
+        
+        // Escojo una ciudad al azar y la introduzco en una posición al azar
+        while (ciuSinVisitar.size() > 0) {
+            // Ciudad al azar
+            int idx = random.nextInt(ciuSinVisitar.size());
+            Ciudad ciudad = ciuSinVisitar.remove(idx);
+
+            // Posición al azar
+            idx = random.nextInt(posSinVisitar.size());
+            int pos = posSinVisitar.remove(idx);
+
+            // La inserto
+            ruta.ruta[pos] = ciudad;
+        }
+        
+        ruta.primeraCiudad = 0;
+        ruta.ultimaCiudad  = ruta.ruta.length - 1;
+        return ruta;        
+    }
+    
+    /**
      * Devuelve una copia de la instancia actual de la ruta.
      * 
      * @return Copia de la ruta actual. 
@@ -66,7 +106,8 @@ public class Ruta {
         Ruta clon = new Ruta(this.ruta.length);
         clon.primeraCiudad = this.primeraCiudad;
         clon.ultimaCiudad  = this.ultimaCiudad;
-        clon.ruta          = (Ciudad[])this.ruta.clone();
+        for (int i = this.primeraCiudad; i <= this.ultimaCiudad; i++)
+            clon.ruta[i] = this.ruta[i];
         return clon;
     }
     
@@ -125,31 +166,16 @@ public class Ruta {
      * @param pos Posición de la ruta donde se insertará la ciudad.
      */
     public void setCiudad(final Ciudad ciudad, final int pos) {
-        this.setCiudad(ciudad, pos, false);
-    }
-    
-    /**
-     * Establece una ciudad en la posición dada.
-     * 
-     * @param ciudad Ciudad a insertar.
-     * @param pos Posición de la ruta donde se insertará la ciudad.
-     * @param unsafe Indica si rutas inválidas temporales están permitidas.
-     * Esto sucede cuando entres dos ciudades no hay camino establecido.
-     * Esto generaría un error al calcular el coste u obtener la ruta.
-     * Se permite para casos en los que estas operaciones se sabe que no se
-     * realizarán hasta que toda la ruta esté completa.
-     */
-    public void setCiudad(final Ciudad ciudad, final int pos, final boolean unsafe) {
         // Si el índice está fuera de los límites de la ruta
         if (pos < 0 || pos >= this.ruta.length)
             throw new ArrayIndexOutOfBoundsException(pos);
         
         // Si intentamos añadir una ciudad dejando más de un hueco libre
         // y no se permite rutas temporales inválidas.
-        if (!unsafe && pos + 1 < this.primeraCiudad)
+        if (pos + 1 < this.primeraCiudad)
             throw new ArrayIndexOutOfBoundsException(pos);
         
-        if (!unsafe && this.ultimaCiudad != -1 && pos - 1 > this.ultimaCiudad)
+        if (this.ultimaCiudad != -1 && pos - 1 > this.ultimaCiudad)
             throw new ArrayIndexOutOfBoundsException(pos);
         
         if (this.primeraCiudad == -1 || this.primeraCiudad > pos)

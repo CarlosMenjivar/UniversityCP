@@ -18,10 +18,8 @@
 
 package tsp.algoritmos;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import tsp.Ciudad;
 import tsp.Problema;
 import tsp.Ruta;
@@ -50,7 +48,7 @@ public class RutaAleatoria implements ITspAlgoritmo {
         List<Ciudad> ciudadesRuta = Arrays.asList(problema.getCiudades());        
         for (int i = 0; i < this.permutaciones; i++) {
             // Genero la ruta aleatoria
-            Ruta ruta = this.generaRuta(ciudadesRuta);
+            Ruta ruta = Ruta.Aleatoria(ciudadesRuta);
             
             // Compruebo si el coste es menor al mejor actual.
             double coste = ruta.getCoste();
@@ -61,36 +59,5 @@ public class RutaAleatoria implements ITspAlgoritmo {
         }
         
         return mejorRuta;
-    }
-    
-    
-    private Ruta generaRuta(List<Ciudad> ciudades) {
-        Ruta ruta = new Ruta(ciudades.size());
-        Random random = new Random();
-        
-        // Listas ir sacando ciudades y posiciones sin repetir.
-        List<Ciudad>  ciuSinVisitar = new ArrayList(ciudades);
-        List<Integer> posSinVisitar = new ArrayList(ciudades.size());
-
-        // Genero la lista de posiciones, gracias a esto aseguro que no
-        // establezco una ciudad en una posición ocupada por otra.
-        for (int i = 0; i < ciudades.size(); i++)
-            posSinVisitar.add(i);        
-        
-        // Escojo una ciudad al azar y la introduzco en una posición al azar
-        while (ciuSinVisitar.size() > 0) {
-            // Ciudad al azar
-            int idx = random.nextInt(ciuSinVisitar.size());
-            Ciudad ciudad = ciuSinVisitar.remove(idx);
-
-            // Posición al azar
-            idx = random.nextInt(posSinVisitar.size());
-            int pos = posSinVisitar.remove(idx);
-
-            // La inserto
-            ruta.setCiudad(ciudad, pos, true);
-        }
-        
-        return ruta;
     }
 }
