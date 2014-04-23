@@ -29,7 +29,10 @@ import tsp.algoritmos.*;
  */
 public class TSP {
     /** Conjunto de algoritmos para resolver el problema soportados. */
-    private static final int NumAlgoritmos = 4;
+    private static final int NumAlgoritmos = 5;
+    
+    /** Número de intentos en algoritmos aleatorios */
+    private static final int NumIntentos = 10000;
     
     /**
      * Método de entrada del programa.
@@ -91,7 +94,14 @@ public class TSP {
                             break;
                             
                         case 4:
-                            algoritmo = new RutaAleatoria(10000);
+                            algoritmo = new RutaAleatoria(NumIntentos);
+                            break;
+                            
+                        case 5:
+                            algoritmo = new RutaAleatoria(
+                                                NumIntentos / 100,
+                                                new MejoraMoviendo()
+                                        );
                             break;
                     }
                     

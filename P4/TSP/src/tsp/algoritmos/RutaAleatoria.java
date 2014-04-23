@@ -33,10 +33,38 @@ import tsp.Ruta;
  */
 public class RutaAleatoria implements ITspAlgoritmo {
     /** Número de permutaciones, rutas aleatorias a generar */
-    private final int permutaciones;
+    private final int intentos;
     
-    public RutaAleatoria(final int permutaciones) {
-        this.permutaciones = permutaciones;
+    /** Algoritmo para mejorar la ruta aleatoria */
+    private final IMejoraRuta mejorar;
+    
+    /**
+     * Crea una instancia del algoritmo de ruta aleatoria.
+     * Las rutas generadas no son mejoradas.
+     * 
+     * @param intentos Número de rutas aleatorias a generar.
+     */
+    public RutaAleatoria(final int intentos) {
+        this.intentos = intentos;
+        
+        // Por defecto no se realiza ninguna mejora sobre la ruta.
+        this.mejorar = new IMejoraRuta() {
+            @Override
+            public Ruta mejoraRuta(final Ruta ruta) {
+               return ruta; 
+            }
+        };
+    }
+    
+    /**
+     * Crea una instancia del algoritmo de ruta aleatoria mejorando.
+     * 
+     * @param intentos Número de rutas aleatorias a generar.
+     * @param mejorar Algoritmo de mejora de la ruta aleatoria.
+     */
+    public RutaAleatoria(final int intentos, final IMejoraRuta mejorar) {
+        this.intentos = intentos;
+        this.mejorar  = mejorar;
     }
     
     @Override
@@ -46,9 +74,12 @@ public class RutaAleatoria implements ITspAlgoritmo {
         
         // Genero rutas aleatorias y escojo la mejor
         List<Ciudad> ciudadesRuta = Arrays.asList(problema.getCiudades());        
-        for (int i = 0; i < this.permutaciones; i++) {
+        for (int i = 0; i < this.intentos; i++) {
             // Genero la ruta aleatoria
             Ruta ruta = Ruta.Aleatoria(ciudadesRuta);
+            
+            // Mejoro la ruta
+            ruta = this.mejorar.mejoraRuta(ruta);
             
             // Compruebo si el coste es menor al mejor actual.
             double coste = ruta.getCoste();

@@ -213,6 +213,16 @@ public class Ruta {
         this.ruta[pos] = ciudad;
         this.ultimaCiudad++;
     }
+    
+    /**
+     * Mueva una ciudad de un lugar a otro.
+     * 
+     * @param posAntigua Posición actual de la ciudad
+     * @param posNueva Nueva posición de la ciudad.
+     */
+    public void mueve(final int posAntigua, final int posNueva) {
+        // TODO:
+    }
   
     /**
      * Devuelve el número de ciudades que actualmente componen la ruta.
@@ -248,5 +258,19 @@ public class Ruta {
      */
     public int getUltimaCiudad() {
         return this.ultimaCiudad;
+    }
+    
+    /**
+     * Devuelve una ciudad de la ruta.
+     * 
+     * @param posicion Posición de la ciudad en la ruta.
+     * @return Ciudad en dicha posición.
+     */
+    public Ciudad getCiudad(int posicion) {
+        // Miro que el índice sea válido.
+        if (posicion < this.primeraCiudad || posicion > this.ultimaCiudad)
+            throw new ArrayIndexOutOfBoundsException(posicion);
+        
+        return this.ruta[posicion];
     }
 }
