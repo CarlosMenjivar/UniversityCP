@@ -30,7 +30,7 @@ import java.util.Arrays;
  */
 public class Ruta {
     /** Ciudades en orden ascendente que componen la ruta. */
-    private final Ciudad[] ruta;
+    private Ciudad[] ruta;
     
     /**
      * Índice de la primera ciudad que contiene la variable ruta.
@@ -58,6 +58,19 @@ public class Ruta {
     }
     
     /**
+     * Devuelve una copia de la instancia actual de la ruta.
+     * 
+     * @return Copia de la ruta actual. 
+     */
+    public Ruta Clona() {
+        Ruta clon = new Ruta(this.ruta.length);
+        clon.primeraCiudad = this.primeraCiudad;
+        clon.ultimaCiudad  = this.ultimaCiudad;
+        clon.ruta          = (Ciudad[])this.ruta.clone();
+        return clon;
+    }
+    
+    /**
      * Devuelve el conjunto de ciudades que actualmente definen a la ruta.
      * Se devolverá una subarray con solo las ciudades insertadas.
      * La última ruta será la ciudad inicial de nuevo para cerrar el recorrido.
@@ -68,7 +81,7 @@ public class Ruta {
         if (this.primeraCiudad == -1 || this.ultimaCiudad == -1)
             return null;
         
-        int length = this.ultimaCiudad - this.primeraCiudad + 1;
+        int length = this.getNumeroCiudades();
         Ciudad[] subruta = new Ciudad[length + 1];
         
         // Copio todas las ciudades en el nuevo vector.
@@ -99,18 +112,18 @@ public class Ruta {
             coste += this.ruta[i].getDistancia(this.ruta[i + 1]);
         
         // Le sumo el coste de la última ciudad con la primera.
-        coste += this.ruta[this.ultimaCiudad].getDistancia(this.ruta[0]);
+        coste += this.ruta[this.ultimaCiudad].getDistancia(this.ruta[this.primeraCiudad]);
         
         return coste;
     }
     
     /**
-     * Inserta una ciudad en la posición dada.
+     * Establece una ciudad en la posición dada.
      * 
      * @param ciudad Ciudad a insertar.
      * @param pos Posición de la ruta donde se insertará la ciudad.
      */
-    public void insertCiudad(final Ciudad ciudad, final int pos) {
+    public void setCiudad(final Ciudad ciudad, final int pos) {
         if (pos < 0 || pos > this.ruta.length)
             throw new ArrayIndexOutOfBoundsException(pos);
         
@@ -120,9 +133,44 @@ public class Ruta {
         if (this.ultimaCiudad == -1 || this.ultimaCiudad < pos)
             this.ultimaCiudad = pos;
         
-        // Dado que el objeto ciudad es inmutable (hay definidos setters)
+        // Dado que el objeto ciudad es inmutable (no hay definidos setters)
         // no hace falta clonarlo.
         this.ruta[pos] = ciudad;
     }
+  
+    /**
+     * Devuelve el número de ciudades que actualmente componen la ruta.
+     * 
+     * @return Número de ciudades de la ruta.
+     */
+    public int getNumeroCiudades() {
+        return this.ultimaCiudad - this.primeraCiudad + 1;
+    }
     
+    /**
+     * Devuelve el número máximo de ciudades que puede componer la ruta.
+     * 
+     * @return Número máximos de ciudades en la ruta.
+     */
+    public int getMaximasCiudades() {
+        return this.ruta.length;
+    }
+    
+    /**
+     * Devuelve el índice donde se encuentra la primera ciudad de la ruta actual.
+     * 
+     * @return Índice de la primera ciudad. 
+     */
+    public int getPrimeraCiudad() {
+        return this.primeraCiudad;
+    }
+    
+    /**
+     * Devuelve el índice donde se encuentra la última ciudad de la ruta actual.
+     * 
+     * @return Índice de la última ciudad.
+     */
+    public int getUltimaCiudad() {
+        return this.ultimaCiudad;
+    }
 }

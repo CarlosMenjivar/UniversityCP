@@ -69,7 +69,7 @@ public class VecinoMasCercano implements ITspAlgoritmo {
         
         // Para cada ciudad, se añade y se busca su más cercana
         for (int i = 0; i < problema.getNumCiudades(); i++) {
-            ruta.insertCiudad(ciudadActual, i);     // La inserta
+            ruta.setCiudad(ciudadActual, i);     // La inserta
             ciudadesLibres.remove(ciudadActual);    // La elimina de las libres
            
             // Busca cual es la ciudad más cercana a esta que no se haya añadido

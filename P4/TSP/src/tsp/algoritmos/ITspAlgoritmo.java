@@ -27,5 +27,12 @@ import tsp.Problema;
  * @author  Benito Palacios Sánchez
  */
 public interface ITspAlgoritmo {
+    
+    /**
+     * Calcula la mejor ruta según el algoritmo que implementa.
+     * 
+     * @param problema Problema a resolver.
+     * @return Mejor ruta.
+     */
     public Ruta calculaMejorRuta(Problema problema);
 }

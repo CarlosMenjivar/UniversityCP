@@ -29,7 +29,7 @@ import tsp.algoritmos.*;
  */
 public class TSP {
     /** Conjunto de algoritmos para resolver el problema soportados. */
-    private static final int NumAlgoritmos = 1;
+    private static final int NumAlgoritmos = 2;
     
     /**
      * Método de entrada del programa.
@@ -37,7 +37,14 @@ public class TSP {
      * @param args Los argumentos de la consola.
      */
     public static void main(final String[] args) {
+        /*try {        
+            // DEBUG:
+            System.setIn(new java.io.FileInputStream("/home/benito/Documentos/Universidad/6/CP/Prácticas/P4/Tests/Instancias/a280.tsp"));
+        } catch (java.io.FileNotFoundException ex) {
+        }*/
+        
         if (args.length == 0 || args[0].equals("help")) {
+            System.out.println("Se necesitan argumentos extras.");
             muestraAyuda();
             return;
         }
@@ -56,6 +63,7 @@ public class TSP {
                 case "coste":    muestraCoste    = true; break;
                 case "algo":
                     if (i + 1 >= args.length) {
+                        System.out.println("Falta el número de algoritmo.");
                         muestraAyuda();
                         return;
                     }
@@ -69,11 +77,18 @@ public class TSP {
 
                     // Crea una instancia del algoritmo
                     switch (numAlgo) {
-                        
+                        case 1:
+                            algoritmo = new EstrategiaInsercion(
+                                                new InsercionEconomica()
+                                        );
+                            break;
                     }
+                    
+                    i++;    // Salta el número de algoritmo.
                     break;
                     
                 default:
+                    System.out.println("Argumento no reconocido.");
                     muestraAyuda();
                     return;
             }

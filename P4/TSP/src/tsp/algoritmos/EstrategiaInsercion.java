@@ -18,6 +18,7 @@
 
 package tsp.algoritmos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import tsp.Ciudad;
@@ -32,6 +33,7 @@ import tsp.Ruta;
  * @author Benito Palacios Sánchez
  */
 public class EstrategiaInsercion implements ITspAlgoritmo {
+    /** Algoritmo de inserción usado. */
     private final IInsercion insercion;
     
     /**
@@ -47,7 +49,8 @@ public class EstrategiaInsercion implements ITspAlgoritmo {
     @Override
     public Ruta calculaMejorRuta(final Problema problema) {
         // Ciudades sin visitar, para los algoritmos de inserción
-        List<Ciudad> sinVisitar = Arrays.asList(problema.getCiudades());
+        List<Ciudad> sinVisitar = new ArrayList<>();
+        sinVisitar.addAll(Arrays.asList(problema.getCiudades()));
         
         // Genero la ruta inicial, y elimino esas ciudades de "sinVisitar".
         Ruta ruta = this.calculaRutaInicial(problema);
@@ -71,24 +74,30 @@ public class EstrategiaInsercion implements ITspAlgoritmo {
         Ruta ruta = new Ruta(problema.getNumCiudades());
         
         // Ciudad más arriba
-        int yMax = -1;
+        double yMax = -1;
         for (Ciudad c : problema.getCiudades()) {
-            if (c.getCoordY() > yMax)
-                ruta.insertCiudad(c, 0);
+            if (c.getCoordY() > yMax) {
+                yMax = c.getCoordY();
+                ruta.setCiudad(c, 0);
+            }
         }
         
         // Ciudad más a la izquierda
-        int xMin = Integer.MAX_VALUE;
+        double xMin = Double.MAX_VALUE;
         for (Ciudad c : problema.getCiudades()) {
-            if (c.getCoordX() < xMin)
-                ruta.insertCiudad(c, 1);
+            if (c.getCoordX() < xMin) {
+                xMin = c.getCoordX();
+                ruta.setCiudad(c, 1);
+            }
         }
         
         // Ciudad más a la derecha
-        int xMax = -1;
+        double xMax = -1;
         for (Ciudad c : problema.getCiudades()) {
-            if (c.getCoordX() > xMax)
-                ruta.insertCiudad(c, 2);
+            if (c.getCoordX() > xMax) {
+                xMax = c.getCoordX();
+                ruta.setCiudad(c, 2);
+            }
         }
         
         return ruta;

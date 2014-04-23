@@ -30,5 +30,12 @@ import tsp.Ruta;
  * @author Benito Palacios Sánchez
  */
 public interface IInsercion {
-    void insertaSiguiente(List<Ciudad> sinVisitar, Ruta ruta);
+    
+    /**
+     * Inserta una ciudad en la ruta de forma óptima.
+     * 
+     * @param sinVisitar Lista de ciudades sin visitar todavía. Se actualizará.
+     * @param ruta Ruta que se está generando.
+     */
+    void insertaSiguiente(final List<Ciudad> sinVisitar, final Ruta ruta);
 }
