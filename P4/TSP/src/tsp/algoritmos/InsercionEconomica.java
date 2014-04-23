@@ -37,59 +37,30 @@ public class InsercionEconomica implements IInsercion {
         // Pruebo en ambos sitios y escojo el que menor coste dé.
         double menorCoste  = Integer.MAX_VALUE;
         Ciudad mejorOpcion = null;
+        int    posicion    = -1;
         
-        // Insertando la ciudad al principio de la ruta (si se puede)
-        boolean mejorPrimero = true;
-        if (ruta.getPrimeraCiudad() > 0) {
-            int idx = ruta.getPrimeraCiudad() - 1;
+        for (int i = ruta.getPrimeraCiudad(); i <= ruta.getUltimaCiudad(); i++) {
+            // Creo una ruta temporal con hueco para insertar ciudad en esta pos
+            Ruta rutaPos = ruta.Clona();
+            rutaPos.insertCiudad(null, i);
             
-            // Por cada ciudad, veo si genera un menor coste.
-            for (Ciudad c : sinVisitar) {
-                double coste = this.getCosteEnPosicion(c, idx, ruta);
+            // Por cada ciudad sin visitar, la establezco en dicha posición y
+            // veo si el coste mejora
+            for (Ciudad ciudad : sinVisitar) {
+                rutaPos.setCiudad(ciudad, i);
+                double coste = rutaPos.getCoste();
+                
+                // Si se da el caso, actualizar los límites
                 if (coste < menorCoste) {
-                    mejorOpcion = c;
                     menorCoste  = coste;
+                    mejorOpcion = ciudad;
+                    posicion    = i;
                 }
-            }
-        }
-        
-        // Insertando la ciudad al final de la ruta (si se puede)
-        if (ruta.getUltimaCiudad() + 1 < ruta.getMaximasCiudades()) {
-            int idx = ruta.getUltimaCiudad() + 1;
-            
-            // Por cada ciudad, veo si genera un menor coste.
-            for (Ciudad c : sinVisitar) {
-                double coste = this.getCosteEnPosicion(c, idx, ruta);
-                if (coste < menorCoste) {
-                    mejorOpcion  = c;
-                    menorCoste   = coste;
-                    mejorPrimero = false;   // Entonces es mejor al final.
-                }
-            }
-        }
+            } // Por cada ciudad
+        } // Por cada posible posición
         
         // Finalmente, inserto la mejor ciudad.
         sinVisitar.remove(mejorOpcion);
-        if (mejorPrimero)
-            ruta.setCiudad(mejorOpcion, ruta.getPrimeraCiudad() - 1);
-        else
-            ruta.setCiudad(mejorOpcion, ruta.getUltimaCiudad() + 1);
-    }
-    
-    /**
-     * Devuelve el coste que tendría la ruta si se añade una ciudad en
-     * una posición.
-     * 
-     * @param ciudad Ciudad a insertar en la ruta
-     * @param posicion Posición donde se insertará dicha ciudad.
-     * @param ruta Ruta base.
-     * @return Coste de la ruta.
-     */
-    private double getCosteEnPosicion(final Ciudad ciudad, final int posicion,
-           final Ruta ruta) {
-        
-        Ruta nuevaRuta = ruta.Clona();
-        nuevaRuta.setCiudad(ciudad, posicion);
-        return nuevaRuta.getCoste();
+        ruta.insertCiudad(mejorOpcion, posicion);
     }
 }

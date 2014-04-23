@@ -91,11 +91,11 @@ public class EstrategiaInsercion implements ITspAlgoritmo {
             }
         }
         
-        // Ciudad más a la derecha
-        double xMax = -1;
+        // Ciudad más abajo
+        double yMin = Double.MAX_VALUE;
         for (Ciudad c : problema.getCiudades()) {
-            if (c.getCoordX() > xMax) {
-                xMax = c.getCoordX();
+            if (c.getCoordY() < yMin) {
+                yMin = c.getCoordY();
                 ruta.setCiudad(c, 2);
             }
         }

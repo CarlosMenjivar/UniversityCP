@@ -124,8 +124,9 @@ public class Ruta {
      * @param pos Posición de la ruta donde se insertará la ciudad.
      */
     public void setCiudad(final Ciudad ciudad, final int pos) {
-        if (pos < 0 || pos > this.ruta.length)
-            throw new ArrayIndexOutOfBoundsException(pos);
+        if (pos < 0 || pos + 1 < this.primeraCiudad ||
+            pos >= this.ruta.length || pos - 1 > this.ultimaCiudad)
+                throw new ArrayIndexOutOfBoundsException(pos);
         
         if (this.primeraCiudad == -1 || this.primeraCiudad > pos)
             this.primeraCiudad = pos;
@@ -136,6 +137,31 @@ public class Ruta {
         // Dado que el objeto ciudad es inmutable (no hay definidos setters)
         // no hace falta clonarlo.
         this.ruta[pos] = ciudad;
+    }
+      
+    /**
+     * Inserta una ciudad en la posición dada.
+     * Para insertar desplaza hacia arriba todos las ciudades de la ruta a
+     * partir de la posición destino, con el objetivo de hacer hueco.
+     * 
+     * @param ciudad Ciudad a insertar.
+     * @param pos Posición a insertar.
+     */
+    public void insertCiudad(final Ciudad ciudad, final int pos) {
+        if (pos < this.primeraCiudad || pos > this.ultimaCiudad)
+                throw new ArrayIndexOutOfBoundsException(pos);
+        
+        // Si al desplazar todo me salgo de los límites de la array
+        if (this.ultimaCiudad + 1 >= this.ruta.length)
+            throw new ArrayIndexOutOfBoundsException(pos);
+        
+        // Hago hueco en la array
+        for (int i = this.ultimaCiudad; i >= pos; i--)
+            this.ruta[i + 1] = this.ruta[i];
+        
+        // Establezco el valor y aumento ultimaCiudad en 1
+        this.ruta[pos] = ciudad;
+        this.ultimaCiudad++;
     }
   
     /**
