@@ -18,6 +18,7 @@
 
 package figuras;
 
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -42,5 +43,21 @@ public class PruebaSimpleFiguras {
         Rectangulo rectangulo = Rectangulo.fromScanner(scanner);
         System.out.println(rectangulo);
         System.out.println();
+        
+        // Imprimo datos sobre las figuras de nuevo
+        imprime(circulo);
+        System.out.println();
+        
+        imprime(rectangulo);
+        System.out.println();
+    }
+    
+    public static void imprime(Figura figura) {
+        long tiempo = (new Date()).getTime() - figura.getFechaCreacion().getTime();
+        
+        System.out.println(figura.getClass().getSimpleName());
+        System.out.println("Tiempo desde su creación: " + tiempo + " milisegundos");
+        System.out.println("Área: " + figura.getArea());
+        System.out.println("Perímetro: " + figura.getPerimetro());
     }
 }
