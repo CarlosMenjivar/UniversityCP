@@ -33,8 +33,7 @@ public class InsercionEconomica implements IInsercion {
     
     @Override
     public void insertaSiguiente(final List<Ciudad> sinVisitar, final Ruta ruta) {
-        // La siguiente ciudad podría ser añadida al principio o al final.
-        // Pruebo en ambos sitios y escojo el que menor coste dé.
+        // Pruebo por cada ciudad en qué lugar produce menor coste.
         double menorCoste  = Integer.MAX_VALUE;
         Ciudad mejorOpcion = null;
         int    posicion    = -1;

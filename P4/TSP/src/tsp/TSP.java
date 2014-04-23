@@ -29,7 +29,7 @@ import tsp.algoritmos.*;
  */
 public class TSP {
     /** Conjunto de algoritmos para resolver el problema soportados. */
-    private static final int NumAlgoritmos = 2;
+    private static final int NumAlgoritmos = 3;
     
     /**
      * Método de entrada del programa.
@@ -80,6 +80,12 @@ public class TSP {
                         case 1:
                             algoritmo = new EstrategiaInsercion(
                                                 new InsercionEconomica()
+                                        );
+                            break;
+                            
+                        case 2:
+                            algoritmo = new EstrategiaInsercion(
+                                                new InsercionLejana()
                                         );
                             break;
                     }
