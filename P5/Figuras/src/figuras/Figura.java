@@ -48,7 +48,7 @@ public abstract class Figura {
     @Override
     public String toString() {
         return String.format("%s creado el %s.\nArea: %.2f\nPerimetro: %.2f",
-                this.getClass().getName(),
+                this.getClass().getSimpleName(),
                 this.fechaCreacion.toString(),
                 this.getArea(),
                 this.getPerimetro()
