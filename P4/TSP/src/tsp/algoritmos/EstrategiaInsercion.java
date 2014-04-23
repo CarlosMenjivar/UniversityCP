@@ -72,34 +72,38 @@ public class EstrategiaInsercion implements ITspAlgoritmo {
      */
     private Ruta calculaRutaInicial(final Problema problema) {
         Ruta ruta = new Ruta(problema.getNumCiudades());
+        Ciudad[] rutaInicial = new Ciudad[3];
         
         // Ciudad más arriba
         double yMax = -1;
         for (Ciudad c : problema.getCiudades()) {
             if (c.getCoordY() > yMax) {
                 yMax = c.getCoordY();
-                ruta.setCiudad(c, 0);
+                rutaInicial[0] = c;
             }
         }
         
         // Ciudad más a la izquierda
         double xMin = Double.MAX_VALUE;
         for (Ciudad c : problema.getCiudades()) {
-            if (c.getCoordX() < xMin) {
+            if (c != rutaInicial[0] && c.getCoordX() < xMin) {
                 xMin = c.getCoordX();
-                ruta.setCiudad(c, 1);
+                rutaInicial[1] = c;
             }
         }
         
         // Ciudad más abajo
         double yMin = Double.MAX_VALUE;
         for (Ciudad c : problema.getCiudades()) {
-            if (c.getCoordY() < yMin) {
+            if (c != rutaInicial[0] && c!= rutaInicial[1] && c.getCoordY() < yMin) {
                 yMin = c.getCoordY();
-                ruta.setCiudad(c, 2);
+                rutaInicial[2] = c;
             }
         }
         
+        ruta.setCiudad(rutaInicial[0], 0);
+        ruta.setCiudad(rutaInicial[1], 1);
+        ruta.setCiudad(rutaInicial[2], 2);
         return ruta;
     }
 }
