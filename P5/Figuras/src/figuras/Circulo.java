@@ -83,4 +83,12 @@ public class Circulo extends Figura {
     public double getPerimetro() {
         return 2 * Math.PI * this.radio;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s\nRadio: %.1f",
+                super.toString(),
+                this.radio
+        );
+    }
 }

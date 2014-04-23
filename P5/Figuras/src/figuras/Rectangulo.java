@@ -107,4 +107,13 @@ public class Rectangulo extends Figura {
     public double getPerimetro() {
         return 2 * this.ancho + 2 * this.alto;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s\nAncho: %.1f\nAlto: %.1f",
+                super.toString(),
+                this.ancho,
+                this.alto
+        );
+    }
 }
