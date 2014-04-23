@@ -29,7 +29,7 @@ import tsp.algoritmos.*;
  */
 public class TSP {
     /** Conjunto de algoritmos para resolver el problema soportados. */
-    private static final int NumAlgoritmos = 3;
+    private static final int NumAlgoritmos = 4;
     
     /**
      * Método de entrada del programa.
@@ -70,23 +70,28 @@ public class TSP {
 
                     // Obtiene el número del algoritmo
                     int numAlgo = Integer.parseInt(args[i + 1]);
-                    if (numAlgo >= NumAlgoritmos) {
+                    if (numAlgo > NumAlgoritmos || numAlgo <= 0) {
+                        System.out.println("Número de algoritmo inválido.");
                         muestraAyuda();
                         return;
                     }
 
                     // Crea una instancia del algoritmo
                     switch (numAlgo) {
-                        case 1:
+                        case 2:
                             algoritmo = new EstrategiaInsercion(
                                                 new InsercionEconomica()
                                         );
                             break;
                             
-                        case 2:
+                        case 3:
                             algoritmo = new EstrategiaInsercion(
                                                 new InsercionLejana()
                                         );
+                            break;
+                            
+                        case 4:
+                            algoritmo = new RutaAleatoria(10000);
                             break;
                     }
                     

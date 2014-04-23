@@ -119,14 +119,38 @@ public class Ruta {
     
     /**
      * Establece una ciudad en la posición dada.
+     * No se permiten rutas inválidas temporales.
      * 
      * @param ciudad Ciudad a insertar.
      * @param pos Posición de la ruta donde se insertará la ciudad.
      */
     public void setCiudad(final Ciudad ciudad, final int pos) {
-        if (pos < 0 || pos + 1 < this.primeraCiudad ||
-            pos >= this.ruta.length || pos - 1 > this.ultimaCiudad)
-                throw new ArrayIndexOutOfBoundsException(pos);
+        this.setCiudad(ciudad, pos, false);
+    }
+    
+    /**
+     * Establece una ciudad en la posición dada.
+     * 
+     * @param ciudad Ciudad a insertar.
+     * @param pos Posición de la ruta donde se insertará la ciudad.
+     * @param unsafe Indica si rutas inválidas temporales están permitidas.
+     * Esto sucede cuando entres dos ciudades no hay camino establecido.
+     * Esto generaría un error al calcular el coste u obtener la ruta.
+     * Se permite para casos en los que estas operaciones se sabe que no se
+     * realizarán hasta que toda la ruta esté completa.
+     */
+    public void setCiudad(final Ciudad ciudad, final int pos, final boolean unsafe) {
+        // Si el índice está fuera de los límites de la ruta
+        if (pos < 0 || pos >= this.ruta.length)
+            throw new ArrayIndexOutOfBoundsException(pos);
+        
+        // Si intentamos añadir una ciudad dejando más de un hueco libre
+        // y no se permite rutas temporales inválidas.
+        if (!unsafe && pos + 1 < this.primeraCiudad)
+            throw new ArrayIndexOutOfBoundsException(pos);
+        
+        if (!unsafe && this.ultimaCiudad != -1 && pos - 1 > this.ultimaCiudad)
+            throw new ArrayIndexOutOfBoundsException(pos);
         
         if (this.primeraCiudad == -1 || this.primeraCiudad > pos)
             this.primeraCiudad = pos;
