@@ -17,6 +17,10 @@
 
 package tsp;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import org.omg.IOP.CodecPackage.FormatMismatch;
 import tsp.algoritmos.*;
 
@@ -56,6 +60,8 @@ public class TSP {
         boolean muestraSolucion = false;
         boolean muestraRuta     = false;
         boolean muestraCoste    = false;
+        boolean introduceOptimo = false;
+        String  archivoOptimo   = null;
         ITspAlgoritmo algoritmo = new VecinoMasCercano();
 
         // Lee los argumentos del programa.
@@ -108,6 +114,11 @@ public class TSP {
                     i++;    // Salta el número de algoritmo.
                     break;
                     
+                case "optimo":
+                    introduceOptimo = true;
+                    archivoOptimo = args[++i];
+                    break;
+                    
                 default:
                     System.out.println("Argumento no reconocido.");
                     muestraAyuda();
@@ -138,6 +149,24 @@ public class TSP {
         
         if (muestraSolucion)
             muestraSolucion(ruta);
+        
+        // Lee del archivo la ruta óptima.
+        if (introduceOptimo) {
+            try {
+                System.out.println();
+                System.out.println("Procesando y mostrando ruta óptima");
+                Ruta rutaOptima = leeRutaOptima(archivoOptimo, problema);
+                muestraCoste(rutaOptima);
+
+                // Muestra la diferencia en coste
+                double costeNormal = ruta.getCoste();
+                double costeOptimo = rutaOptima.getCoste();
+                double diff = (costeNormal - costeOptimo) / costeOptimo * 100;
+                System.out.println("Nuestra ruta es: " + diff + "% menos óptima.");
+            } catch (FileNotFoundException | EOFException ex) {
+                System.out.println("Hubo un error...");
+            }
+        }
     }
     
     /**
@@ -145,6 +174,7 @@ public class TSP {
      */
     private static void muestraAyuda() {
         System.out.println("USO: TSP [h] [solucion] [ruta] [coste] [algo X]");
+        System.out.println("         [optimo archivoConSolucion]           ");
         System.out.println();
         System.out.println("El problema se introducirá desde la entrada    ");
         System.out.println("estandar.                                      ");
@@ -163,6 +193,8 @@ public class TSP {
         System.out.println("             2: InsercionLejana                ");
         System.out.println("             3: RutaAleatoria                  ");
         System.out.println("             4: MejoraAleatoria                ");
+        System.out.println("   optimo:   Introduce la solución óptima del  ");
+        System.out.println("             problema para compararla.         ");
     }
         
     /**
@@ -206,5 +238,38 @@ public class TSP {
     private static void muestraRuta(Ruta solucion) {
         for (Ciudad ciudad : solucion.getRuta())
             System.out.println(ciudad.getId());
+    }
+
+    /**
+     * Lee la ruta óptima desde una fichero externo.
+     * 
+     * @param archivo Fichero con la ruta óptima.
+     * @param problema Problema que resuelve la ruta.
+     * @return Ruta óptima.
+     * @throws FileNotFoundException El fichero no se puede encontrar.
+     */
+    private static Ruta leeRutaOptima(final String archivo, final Problema problema)
+            throws FileNotFoundException, EOFException {
+        Scanner scanner = new Scanner(new File(archivo));
+        
+        // Avanza hasta donde comienzan los números
+        do ; while (scanner.hasNextLine() && !scanner.nextLine().equals("TOUR_SECTION"));
+        
+        // Si no se ha encontrado y se ha llegado al final del archivo excepción
+        if (!scanner.hasNextLine())
+            throw new java.io.EOFException("Imposible encontrar inicio de ruta");
+        
+        // Empezar añadir ciudades a la ruta por su ID.
+        Ruta ruta = new Ruta(problema.getNumCiudades());
+        
+        // Mientras que el ID no sea "-1" seguir añadiendo
+        int pos = 0;
+        int idCiudad = scanner.nextInt();
+        while (idCiudad != -1) {
+            ruta.setCiudad(problema.getCiudadById(idCiudad), pos++);
+            idCiudad = scanner.nextInt();
+        }
+        
+        return ruta;
     }
 }

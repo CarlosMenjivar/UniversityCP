@@ -96,6 +96,20 @@ public class Problema {
     }
     
     /**
+     * Devuelve la ciudad que tiene el mismo Id al dado.
+     * 
+     * @param id Id de ciudad a buscar.
+     * @return Ciudad con igual Id.
+     */
+    public Ciudad getCiudadById(final int id) {
+        for (Ciudad ciudad : this.ciudades)
+            if (ciudad.getId() == id)
+                return ciudad;
+        
+        return null;
+    }
+    
+    /**
      * Devuelve el conjunto de ciudades que componen el problema.
      * 
      * @return Ciudades del problema.
