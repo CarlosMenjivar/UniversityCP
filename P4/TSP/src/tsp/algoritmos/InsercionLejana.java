@@ -85,7 +85,7 @@ public class InsercionLejana implements IInsercion {
      */
     private static double getCoste(final double[][] distancias, Ciudad c1, Ciudad c2) {
         int id1 = c1.getId() - 1;
-        int id2 = c2.getId() - 2;
+        int id2 = c2.getId() - 1;
         return distancias[id1][id2];
     }
 }
