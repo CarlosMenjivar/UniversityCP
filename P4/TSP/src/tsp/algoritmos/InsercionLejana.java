@@ -38,11 +38,12 @@ public class InsercionLejana implements IInsercion {
         int    mejorPosicion  = -1;
         
         Ciudad[] ciudadesRuta = ruta.getRuta();
+        double[][] distancias = ruta.getDistancias();
         for (Ciudad ciudad : sinVisitar) {
             // Obtengo la menor distancia para esta ciudad y la posición en la
             // que dicha distancia se da
-            int pos = this.getPosicionMinimaDistancia(ciudadesRuta, ciudad);
-            double distancia = ciudad.getDistancia(ciudadesRuta[pos]);
+            int pos = getPosicionMinimaDistancia(ciudadesRuta, ciudad, distancias);
+            double distancia = getCoste(distancias, ciudad, ciudadesRuta[pos]);
             
             // Si esta distancia mínima es mayor a las otras guardarla
             if (distancia > mayorDistancia) {
@@ -57,12 +58,14 @@ public class InsercionLejana implements IInsercion {
         ruta.insertCiudad(mejorOpcion, mejorPosicion + ruta.getPrimeraCiudad());
     }
     
-    private int getPosicionMinimaDistancia(final Ciudad[] ruta, final Ciudad ciudad) {
+    private static int getPosicionMinimaDistancia(final Ciudad[] ruta,
+            final Ciudad ciudad, final double[][] distancias) {
+        
         double minimaDistancia = Double.MAX_VALUE;
         int posicion = -1;
         
         for (int i = 0; i < ruta.length; i++) {
-            double distancia = ciudad.getDistancia(ruta[i]);
+            double distancia = getCoste(distancias, ciudad, ruta[i]);
             if (distancia < minimaDistancia) {
                 minimaDistancia = distancia;
                 posicion = i;
@@ -70,5 +73,19 @@ public class InsercionLejana implements IInsercion {
         } // Por cada posible posición  
         
         return posicion;
+    }
+    
+    /**
+     * Devuelve la distancia entre dos ciudades.
+     * 
+     * @param distancias Matriz de distancia entre ciudades.
+     * @param c1 Una ciudad
+     * @param c2 Otra ciudad.
+     * @return Distancia entre las ciudades pasadas.
+     */
+    private static double getCoste(final double[][] distancias, Ciudad c1, Ciudad c2) {
+        int id1 = c1.getId() - 1;
+        int id2 = c2.getId() - 2;
+        return distancias[id1][id2];
     }
 }

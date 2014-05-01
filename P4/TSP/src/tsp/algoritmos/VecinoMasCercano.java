@@ -65,16 +65,16 @@ public class VecinoMasCercano implements ITspAlgoritmo {
         );
            
         // Comenzamos por la ciudad inicial dada.
-        Ciudad ciudadActual = problema.getCiudad(ciudadInicial);
+        Ciudad actual = problema.getCiudad(ciudadInicial);
         
         // Para cada ciudad, se añade y se busca su más cercana
         for (int i = 0; i < problema.getNumCiudades(); i++) {
-            ruta.setCiudad(ciudadActual, i);     // La inserta
-            ciudadesLibres.remove(ciudadActual);    // La elimina de las libres
+            ruta.setCiudad(actual, i);      // La inserta
+            ciudadesLibres.remove(actual);  // La elimina de las libres
            
             // Busca cual es la ciudad más cercana a esta que no se haya añadido
             // todavía a la ruta actual.
-            ciudadActual = ciudadMasCercana(ciudadActual, ciudadesLibres);
+            actual = ciudadMasCercana(actual, problema, ciudadesLibres);
         }
         
         return ruta;
@@ -87,12 +87,13 @@ public class VecinoMasCercano implements ITspAlgoritmo {
      * @param lista Lista de ciudad para comparar.
      * @return Ciudad más cercana.
      */
-    private static Ciudad ciudadMasCercana(Ciudad inicio, ArrayList<Ciudad> lista) {
+    private static Ciudad ciudadMasCercana(final Ciudad inicio, 
+            final Problema problema, final ArrayList<Ciudad> lista) {
         double coste = 0;
         Ciudad masCercana = null;
         
         for (Ciudad ciudad : lista) {
-            double costeActual = inicio.getDistancia(ciudad);
+            double costeActual = problema.getDistancia(inicio, ciudad);
             if (masCercana == null || costeActual < coste) {
                 coste = costeActual;
                 masCercana = ciudad;

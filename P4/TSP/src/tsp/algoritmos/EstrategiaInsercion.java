@@ -72,6 +72,7 @@ public class EstrategiaInsercion implements ITspAlgoritmo {
      */
     private Ruta calculaRutaInicial(final Problema problema) {
         Ruta ruta = new Ruta(problema.getNumCiudades());
+        ruta.setDistancias(problema.getDistancias());
         Ciudad[] rutaInicial = new Ciudad[3];
         
         // Ciudad más arriba

@@ -48,6 +48,7 @@ public class RutaAleatoria implements ITspAlgoritmo {
         this.intentos = intentos;
         
         // Por defecto no se realiza ninguna mejora sobre la ruta.
+        // Algoritmo 4.
         this.mejorar = new IMejoraRuta() {
             @Override
             public Ruta mejoraRuta(final Ruta ruta) {
@@ -77,6 +78,7 @@ public class RutaAleatoria implements ITspAlgoritmo {
         for (int i = 0; i < this.intentos; i++) {
             // Genero la ruta aleatoria
             Ruta ruta = Ruta.Aleatoria(ciudadesRuta);
+            ruta.setDistancias(problema.getDistancias());
             
             // Mejoro la ruta
             ruta = this.mejorar.mejoraRuta(ruta);

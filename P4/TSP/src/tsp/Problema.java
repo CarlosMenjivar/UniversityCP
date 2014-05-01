@@ -33,10 +33,7 @@ public class Problema {
     
     /**
      * Contiene todas las distancias entre una ciudades y las restantes.
-     * La primera dimension corresponde a cada una de las ciudades del vector
-     * {@link Problema#ciudades} mientras que la segunda dimension contiene
-     * la distancia de dicha ciudad con el resto de ciudades del vector en el
-     * mismo orden.
+     * El índice de la matriz corresponde con el ID de la ciudad menos 1.
      */
     private final double[][] distancias;
     
@@ -117,19 +114,54 @@ public class Problema {
     }
     
     /**
+     * Devuelve la matriz con la distancia entre ciudades.
+     * El índice de la matriz corresponde con el ID de la ciudad menos 1.
+     * 
+     * @return Matriz de distancia entre ciudades.
+     */
+    public double[][] getDistancias() {
+        return (double[][])this.distancias;
+    }
+    
+    /**
+     * Devuelve la distancia entre dos ciudad.
+     * Este método proporciona un camino rápido de obtener distancias entre
+     * ciudades porque accede a una matriz precalculada de distancias.
+     * 
+     * @param ciudad1 Primera ciudad (extremo).
+     * @param ciudad2 Segunda ciudad (otro extremo).
+     * @return Distancia entre ciudades.
+     */
+    public double getDistancia(Ciudad ciudad1, Ciudad ciudad2) {
+        return this.distancias[ciudad1.getId() - 1][ciudad2.getId() - 1];
+    }
+    
+    /**
      * Crea una matriz de distancia entre ciudades.
      * 
      * @param ciudades Ciudades a analizar.
      * @return Distancia entre ciudades.
      */
     private static double[][] calculaDistancias(final Ciudad[] ciudades) {
+        // Dado que la distancia de una ciudad a otra no depende de la ciudad
+        // de partida, la matriz distancia es simétrica con diagonal nula.
+        // Por tanto sólo hace falta calcular la mitad de los valores.
         double[][] distancias = new double[ciudades.length][ciudades.length];
-        
-        // TODO: Calcula la distancia de la mitad de las ciudades pues la del
-        // resto ya habrá sido calcula anteriormente (es recíproco).
         for (int i = 0; i < ciudades.length; i++) {
             for (int j = 0; j < ciudades.length; j++) {
-                distancias[i][j] = ciudades[i].getDistancia(ciudades[j]);
+                // Los índices en matrices empiezan en 0, pero en ciudades en 1.
+                int id1 = ciudades[i].getId() - 1;
+                int id2 = ciudades[j].getId() - 1;
+                
+                double dist;
+                if (i < j)
+                    dist = ciudades[i].getDistancia(ciudades[j]);
+                else if (i == j)
+                    dist = 0;
+                else
+                    dist = distancias[id2][id1];
+                
+                distancias[id1][id2] = dist;
             }
         }
         

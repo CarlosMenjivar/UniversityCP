@@ -48,6 +48,12 @@ public class Ruta {
      */
     private int ultimaCiudad;
     
+    /** 
+     * Matriz opcional con todas las distancias entre ciudades.
+     * Los índices corresponden al ID de la ciudad menos 1. 
+     */
+    private double[][] distancias;
+    
     /**
      * Crea una instancia reservando el número de ciudades especificado.
      * 
@@ -106,9 +112,31 @@ public class Ruta {
         Ruta clon = new Ruta(this.ruta.length);
         clon.primeraCiudad = this.primeraCiudad;
         clon.ultimaCiudad  = this.ultimaCiudad;
+        clon.distancias    = (double[][])this.distancias.clone();
         for (int i = this.primeraCiudad; i <= this.ultimaCiudad; i++)
             clon.ruta[i] = this.ruta[i];
         return clon;
+    }
+    
+    /**
+     * Devuelve la matriz de distancia entre ciudades.
+     * El índice de la matriz corresponde con el ID de la ciudad menos 1.
+     * 
+     * @return Matriz de distancia entre ciudades.
+     */
+    public double[][] getDistancias() {
+        return (double[][])this.distancias.clone();
+    }
+    
+    /**
+     * Establece una matriz con las distancias entre todas las ciudades.
+     * Esta matriz es opcional y hará los cálculos de coste más rápido
+     * pues no hay que calcular las distancias de nuevo.
+     * 
+     * @param distancias Matriz de distancias entre ciudades.
+     */
+    public void setDistancias(final double[][] distancias) {
+        this.distancias = (double[][])distancias.clone();
     }
     
     /**
@@ -150,10 +178,10 @@ public class Ruta {
         
         // Le sumo el coste de cada ciudad con la siguiente.
         for (int i = this.primeraCiudad; i < this.ultimaCiudad; i++)
-            coste += this.ruta[i].getDistancia(this.ruta[i + 1]);
+            coste += this.getCoste(i, i + 1);
         
         // Le sumo el coste de la última ciudad con la primera.
-        coste += this.ruta[this.ultimaCiudad].getDistancia(this.ruta[this.primeraCiudad]);
+        coste += this.getCoste(this.ultimaCiudad, this.primeraCiudad);
         
         return coste;
     }
@@ -272,5 +300,23 @@ public class Ruta {
             throw new ArrayIndexOutOfBoundsException(posicion);
         
         return this.ruta[posicion];
+    }
+    
+    /**
+     * Devuelve la distancia entre dos ciudades.
+     * Si la matriz distancia se ha establecido se tomará de allí.
+     * 
+     * @param idx1 Índice en la ruta de una de las ciudades.
+     * @param idx2 Índice en la ruta de la otra ciudad.
+     * @return Distancia entre ciudades.
+     */
+    private double getCoste(final int idx1, final int idx2) {
+        if (this.distancias == null) {
+            return this.ruta[idx1].getDistancia(this.ruta[idx2]);
+        } else {
+            int id1 = this.ruta[idx1].getId() - 1;
+            int id2 = this.ruta[idx2].getId() - 1;
+            return this.distancias[id1][id2];
+        }
     }
 }
