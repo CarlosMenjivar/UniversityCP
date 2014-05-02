@@ -62,7 +62,7 @@ public class Heuristica {
      * 
      * @param algoritmo Algoritmo para resolver el problema.
      */
-    public void setAlgoritmo(ITspAlgoritmo algoritmo) {
+    public void setAlgoritmo(final ITspAlgoritmo algoritmo) {
         this.algoritmo = algoritmo;
     }
     

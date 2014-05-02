@@ -46,13 +46,7 @@ public class TSP {
      * 
      * @param args Los argumentos de la consola.
      */
-    public static void main(final String[] args) {
-        /*try {        
-            // DEBUG:
-            System.setIn(new java.io.FileInputStream("/home/benito/Documentos/Universidad/6/CP/Prácticas/P4/Tests/Instancias/a280.tsp"));
-        } catch (java.io.FileNotFoundException ex) {
-        }*/
-        
+    public static void main(final String[] args) {        
         if (args.length == 0 || args[0].equals("help")) {
             System.out.println("Se necesitan argumentos extras.");
             muestraAyuda();
@@ -207,11 +201,11 @@ public class TSP {
         System.out.println("   coste:    Muestra el coste de la ruta.      ");
         System.out.println("   algo X:   Utiliza el número de algoritmo    ");
         System.out.println("              seleccionado.                    ");
-        System.out.println("             0: VecinoMasCercano [por defecto] ");
-        System.out.println("             1: InsercionEconomica             ");
-        System.out.println("             2: InsercionLejana                ");
-        System.out.println("             3: RutaAleatoria                  ");
-        System.out.println("             4: MejoraAleatoria                ");
+        System.out.println("             1: VecinoMasCercano [por defecto] ");
+        System.out.println("             2: InsercionEconomica             ");
+        System.out.println("             3: InsercionLejana                ");
+        System.out.println("             4: RutaAleatoria                  ");
+        System.out.println("             5: MejoraAleatoria                ");
         System.out.println("   optimo:   Introduce la solución óptima del  ");
         System.out.println("             problema para compararla.         ");
         System.out.println("   tiempo:   Muestra el tiempo en milisegundos ");

@@ -65,7 +65,7 @@ public class MejoraMoviendo implements IMejoraRuta {
      * @param ruta Ruta a mejorar.
      * @return Ruta mejorada o en caso de no ser mejorada, ruta original.
      */
-    private Ruta realizaMovimiento(final Ruta ruta) {
+    private static Ruta realizaMovimiento(final Ruta ruta) {
         // Si no hay mejora, devuelve la ruta original.
         double menorCoste = ruta.getCoste();
         Ruta mejorRuta    = ruta;
@@ -79,7 +79,7 @@ public class MejoraMoviendo implements IMejoraRuta {
                     continue;
                 
                 // Muevo la ciudad a dicha posición
-                Ruta rutaTemp = ruta.Clona();
+                Ruta rutaTemp = ruta.clona();
                 rutaTemp.mueve(i, pos);
                 
                 // Veo si el coste es menor

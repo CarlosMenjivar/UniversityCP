@@ -32,7 +32,7 @@ import tsp.Ruta;
 public class VecinoMasCercano implements ITspAlgoritmo {
 
     @Override
-    public Ruta calculaMejorRuta(Problema problema) {
+    public Ruta calculaMejorRuta(final Problema problema) {
         Ruta mejorRuta = null;
         
         // Para cada ciudad inicial posible, calcula una ruta comenzando por
@@ -54,7 +54,7 @@ public class VecinoMasCercano implements ITspAlgoritmo {
      * @param problema Conjunto de ciudades que definen el problema.
      * @return Ruta generada por el algoritmo.
      */
-    private static Ruta calculaRuta(int ciudadInicial, Problema problema) {
+    private static Ruta calculaRuta(final int ciudadInicial, final Problema problema) {
         // Crea la instancia de ruta y añade la ruta inicial.
         Ruta ruta = new Ruta(problema.getNumCiudades());
         

@@ -58,6 +58,14 @@ public class InsercionLejana implements IInsercion {
         ruta.insertCiudad(mejorOpcion, mejorPosicion + ruta.getPrimeraCiudad());
     }
     
+    /**
+     * Obtiene la posición de una ciudad para que su distancia sea mínima.
+     * 
+     * @param ruta Ruta temporal con ciudades a comparar.
+     * @param ciudad Ciudad a comparar.
+     * @param distancias Matriz de distancias.
+     * @return Posición en cuya distancia a la siguiente ciudad es mínima.
+     */
     private static int getPosicionMinimaDistancia(final Ciudad[] ruta,
             final Ciudad ciudad, final double[][] distancias) {
         

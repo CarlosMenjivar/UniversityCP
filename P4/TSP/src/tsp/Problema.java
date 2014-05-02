@@ -44,7 +44,7 @@ public class Problema {
      */
     public Problema(final Ciudad[] ciudades) {
         this.ciudades   = ciudades;
-        this.distancias = calculaDistancias(ciudades);
+        this.distancias = CalculaDistancias(ciudades);
     }
     
     /**
@@ -146,7 +146,7 @@ public class Problema {
      * @param ciudad2 Segunda ciudad (otro extremo).
      * @return Distancia entre ciudades.
      */
-    public double getDistancia(Ciudad ciudad1, Ciudad ciudad2) {
+    public double getDistancia(final Ciudad ciudad1, final Ciudad ciudad2) {
         return this.distancias[ciudad1.getId() - 1][ciudad2.getId() - 1];
     }
     
@@ -156,7 +156,7 @@ public class Problema {
      * @param ciudades Ciudades a analizar.
      * @return Distancia entre ciudades.
      */
-    private static double[][] calculaDistancias(final Ciudad[] ciudades) {
+    private static double[][] CalculaDistancias(final Ciudad[] ciudades) {
         // Dado que la distancia de una ciudad a otra no depende de la ciudad
         // de partida, la matriz distancia es simétrica con diagonal nula.
         // Por tanto sólo hace falta calcular la mitad de los valores.

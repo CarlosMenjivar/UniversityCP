@@ -40,7 +40,7 @@ public class InsercionEconomica implements IInsercion {
         
         for (int i = ruta.getPrimeraCiudad(); i <= ruta.getUltimaCiudad(); i++) {
             // Creo una ruta temporal con hueco para insertar ciudad en esta pos
-            Ruta rutaPos = ruta.Clona();
+            Ruta rutaPos = ruta.clona();
             rutaPos.insertCiudad(null, i);
             
             // Por cada ciudad sin visitar, la establezco en dicha posición y

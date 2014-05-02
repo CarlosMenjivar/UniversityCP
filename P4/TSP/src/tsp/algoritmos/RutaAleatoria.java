@@ -69,7 +69,7 @@ public class RutaAleatoria implements ITspAlgoritmo {
     }
     
     @Override
-    public Ruta calculaMejorRuta(Problema problema) {
+    public Ruta calculaMejorRuta(final Problema problema) {
         Ruta mejorRuta    = null;
         double menorCoste = Double.MAX_VALUE;
         

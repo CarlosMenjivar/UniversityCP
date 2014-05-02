@@ -71,7 +71,7 @@ public class Ruta {
      * @param ciudades Ciudades que conformarán la ruta.
      * @return Ruta aleatoria
      */
-    public static Ruta Aleatoria(List<Ciudad> ciudades) {
+    public static Ruta Aleatoria(final List<Ciudad> ciudades) {
         Ruta ruta = new Ruta(ciudades.size());
         Random random = new Random();
         
@@ -108,7 +108,7 @@ public class Ruta {
      * 
      * @return Copia de la ruta actual. 
      */
-    public Ruta Clona() {
+    public Ruta clona() {
         Ruta clon = new Ruta(this.ruta.length);
         clon.primeraCiudad = this.primeraCiudad;
         clon.ultimaCiudad  = this.ultimaCiudad;
@@ -327,7 +327,7 @@ public class Ruta {
      * @param posicion Posición de la ciudad en la ruta.
      * @return Ciudad en dicha posición.
      */
-    public Ciudad getCiudad(int posicion) {
+    public Ciudad getCiudad(final int posicion) {
         // Miro que el índice sea válido.
         if (posicion < this.primeraCiudad || posicion > this.ultimaCiudad)
             throw new ArrayIndexOutOfBoundsException(posicion);
