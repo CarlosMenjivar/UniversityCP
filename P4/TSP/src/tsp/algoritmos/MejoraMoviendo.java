@@ -27,6 +27,8 @@ import tsp.Ruta;
  * @author  Benito Palacios Sánchez
  */
 public class MejoraMoviendo implements IMejoraRuta {
+    private static final int MAX_ITERACIONES = 10;
+    
     /**
      * Mejora la ruta realizando cambios de lugar de las ciudades.
      * 
@@ -35,18 +37,20 @@ public class MejoraMoviendo implements IMejoraRuta {
      */
     @Override
     public Ruta mejoraRuta(final Ruta ruta) {
-        Ruta rutaFinal = ruta;   
+        Ruta rutaFinal = ruta;
         
         // Sobre la ruta aleatoria realiza toda las posibles mejoras.
+        int i = 0;
         boolean fin = false;
-        while (!fin) {
+        while (!fin && i < MAX_ITERACIONES) {
             // Pruebo a realizar una mejora
-            Ruta rutaNueva = this.realizaMovimiento(ruta);
+            Ruta rutaNueva = this.realizaMovimiento(rutaFinal);
             
             // Si se ha mejorado, es decir ha habido cambio.
-            if (rutaNueva != rutaFinal)
+            if (rutaNueva != rutaFinal) {
                 rutaFinal = rutaNueva;
-            else    // Si no terminar, ya no se puede mejorar más la ruta.
+                i++;
+            } else    // Si no terminar, ya no se puede mejorar más la ruta.
                 fin = true;
         }
         

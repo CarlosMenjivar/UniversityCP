@@ -112,7 +112,12 @@ public class Ruta {
         Ruta clon = new Ruta(this.ruta.length);
         clon.primeraCiudad = this.primeraCiudad;
         clon.ultimaCiudad  = this.ultimaCiudad;
-        clon.distancias    = (double[][])this.distancias.clone();
+        // Lo idea es hacer un clone de distancias y así garantizar
+        // que aunque se modifique un valor en la nueva copia, no se modificará
+        // la de esta, pero por rendimiento me he asegurado de que eso no pase
+        // asi que no hace falta.
+        //clon.distancias    = (double[][])this.distancias.clone();
+        clon.distancias    = this.distancias;
         for (int i = this.primeraCiudad; i <= this.ultimaCiudad; i++)
             clon.ruta[i] = this.ruta[i];
         return clon;
@@ -177,11 +182,28 @@ public class Ruta {
         double coste = 0;
         
         // Le sumo el coste de cada ciudad con la siguiente.
-        for (int i = this.primeraCiudad; i < this.ultimaCiudad; i++)
-            coste += this.getCoste(i, i + 1);
+        for (int i = this.primeraCiudad; i < this.ultimaCiudad; i++) {
+            // No llamo a la función getCoste(i, i + 1) como hacía en un
+            // principio para mejorar el rendimiento
+            // coste += getCoste(i, i + 1);
+            if (this.distancias == null) {
+                coste += this.ruta[i].getDistancia(this.ruta[i + 1]);
+            } else {
+                int id1 = this.ruta[i].getId() - 1;
+                int id2 = this.ruta[i + 1].getId() - 1;
+                coste += this.distancias[id1][id2];
+            }
+        }
         
         // Le sumo el coste de la última ciudad con la primera.
-        coste += this.getCoste(this.ultimaCiudad, this.primeraCiudad);
+        //coste += this.getCoste(this.ultimaCiudad, this.primeraCiudad);
+        if (this.distancias == null) {
+            coste += this.ruta[this.ultimaCiudad].getDistancia(this.ruta[this.primeraCiudad]);
+        } else {
+            int id1 = this.ruta[this.ultimaCiudad].getId() - 1;
+            int id2 = this.ruta[this.primeraCiudad].getId() - 1;
+            coste += this.distancias[id1][id2];
+        }
         
         return coste;
     }
@@ -249,7 +271,18 @@ public class Ruta {
      * @param posNueva Nueva posición de la ciudad.
      */
     public void mueve(final int posAntigua, final int posNueva) {
-        // TODO:
+        Ciudad ciudad = this.ruta[posAntigua];        
+        if (posAntigua < posNueva) {
+            // Desplazo los elementos hacia abajo hasta ocupar la antigua pos.
+            for (int i = posAntigua; i < posNueva; i++)
+                this.ruta[i] = this.ruta[i + 1];
+        } else if (posAntigua > posNueva) {
+            // Desplazo los elementos hacia arriba hasta ocupar la antigua pos.
+            for (int i = posAntigua; i > posNueva; i--)
+                this.ruta[i] = this.ruta[i - 1];
+        }
+        
+        this.ruta[posNueva] = ciudad;
     }
   
     /**
