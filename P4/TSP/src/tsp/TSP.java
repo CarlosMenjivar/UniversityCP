@@ -63,6 +63,7 @@ public class TSP {
         boolean muestraSolucion = false;
         boolean muestraRuta     = false;
         boolean muestraCoste    = false;
+        boolean muestraTiempo   = false;
         boolean introduceOptimo = false;
         String  archivoOptimo   = null;
         ITspAlgoritmo algoritmo = new VecinoMasCercano();
@@ -73,6 +74,7 @@ public class TSP {
                 case "solucion": muestraSolucion = true; break;
                 case "ruta":     muestraRuta     = true; break;
                 case "coste":    muestraCoste    = true; break;
+                case "tiempo":   muestraTiempo   = true; break;
                 case "algo":
                     if (i + 1 >= args.length) {
                         System.out.println("Falta el número de algoritmo.");
@@ -140,7 +142,11 @@ public class TSP {
         
         // Resuelve el problema
         Heuristica heuristica = new Heuristica(problema, algoritmo);
+        
+        // Mide el tiempo
+        long inicio = System.nanoTime();
         heuristica.run();
+        long fin = System.nanoTime();
         
         // Muestra el resultado
         Ruta ruta = heuristica.getRuta();
@@ -152,6 +158,13 @@ public class TSP {
         
         if (muestraSolucion)
             muestraSolucion(ruta);
+        
+        if (muestraTiempo) {
+            System.out.println(String.format(
+                    "Tiempo tardado: %.2f ms",
+                    (fin - inicio) / 1000000.0
+            ));
+        }
         
         // Lee del archivo la ruta óptima.
         if (introduceOptimo) {
@@ -165,9 +178,12 @@ public class TSP {
                 double costeNormal = ruta.getCoste();
                 double costeOptimo = rutaOptima.getCoste();
                 double diff = (costeNormal - costeOptimo) / costeOptimo * 100;
-                System.out.println("Nuestra ruta es: " + diff + "% menos óptima.");
+                System.out.println(String.format(
+                        "Nuestra ruta es: %.2f%% menos óptima.",
+                        diff
+                ));
             } catch (FileNotFoundException | EOFException ex) {
-                System.out.println("Hubo un error...");
+                System.out.println("Hubo un error: " + ex.getMessage());
             }
         }
     }
@@ -177,7 +193,7 @@ public class TSP {
      */
     private static void muestraAyuda() {
         System.out.println("USO: TSP [h] [solucion] [ruta] [coste] [algo X]");
-        System.out.println("         [optimo archivoConSolucion]           ");
+        System.out.println("         [optimo archivoConSolucion] [tiempo]  ");
         System.out.println();
         System.out.println("El problema se introducirá desde la entrada    ");
         System.out.println("estandar.                                      ");
@@ -198,16 +214,9 @@ public class TSP {
         System.out.println("             4: MejoraAleatoria                ");
         System.out.println("   optimo:   Introduce la solución óptima del  ");
         System.out.println("             problema para compararla.         ");
-    }
-        
-    /**
-     * Realiza una comparativa de cada algoritmo implementado comprobando
-     * el coste de cada solución y el tiempo que tarda en encontrarla.
-     * 
-     * @param problema Problema a resolver.
-     */
-    private static void comparaAlgoritmos(Problema problema) {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        System.out.println("   tiempo:   Muestra el tiempo en milisegundos ");
+        System.out.println("             que la heurística toma en resolver");
+        System.out.println("             el problema.                      ");
     }
     
     /**
