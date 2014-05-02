@@ -265,7 +265,7 @@ public class TSP {
         Scanner scanner = new Scanner(new File(archivo));
         
         // Avanza hasta donde comienzan los números
-        do ; while (scanner.hasNextLine() && !scanner.nextLine().equals("TOUR_SECTION"));
+        do ; while (scanner.hasNextLine() && !scanner.nextLine().startsWith("TOUR_SECTION"));
         
         // Si no se ha encontrado y se ha llegado al final del archivo excepción
         if (!scanner.hasNextLine())
