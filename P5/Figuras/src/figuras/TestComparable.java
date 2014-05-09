@@ -42,6 +42,13 @@ public class TestComparable {
         Figura mayor = ComparableAlgoritmos.mayor(figuras);
         System.out.println("La figura mayor es:");
         System.out.println(mayor);
+        System.out.println();
+        
+        // Ordena el array
+        ComparableAlgoritmos.ordena(figuras);
+        System.out.println("El vector ordenado es:");
+        for (Figura fig : figuras)
+            System.out.println(fig);
     }
     
     private static Figura[] generaArrayFiguras(final double prob, 

@@ -32,4 +32,24 @@ public class ComparableAlgoritmos {
         
         return mayor;
     }
+        
+    public static void ordena(final Figura[] figuras) {
+        for (int i = 0; i < figuras.length - 1; i++) {
+            int mayor = indiceDeMayor(figuras, i);
+            
+            Figura swap = figuras[i];
+            figuras[i]  = figuras[mayor];
+            figuras[mayor] = swap;
+        }
+    }
+    
+    private static int indiceDeMayor(final Figura[] figuras, final int inicio) {
+        int indice = -1;
+        for (int i = inicio; i < figuras.length; i++) {
+            if (indice == -1 || figuras[i].compareTo(figuras[indice]) == 1)
+                indice = i;
+        }
+        
+        return indice;
+    }
 }
