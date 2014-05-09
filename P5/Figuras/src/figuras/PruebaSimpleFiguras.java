@@ -61,6 +61,13 @@ public class PruebaSimpleFiguras {
         System.out.println("Rectángulo delimitador del rectángulo:");
         imprime(deliRectangulo);
         System.out.println();
+        
+        // Comparo el delimitador con el original
+        System.out.print("¿Es igual el rectángulo al delimitador? ");
+        System.out.println(deliRectangulo.compareTo(rectangulo));
+        
+        System.out.print("¿Es igual el círculo al delimitador? ");
+        System.out.println(deliCirculo.compareTo(circulo));
     }
     
     private static void imprime(Figura figura) {

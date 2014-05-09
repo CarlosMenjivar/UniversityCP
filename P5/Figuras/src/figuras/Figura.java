@@ -25,7 +25,7 @@ import java.util.Date;
  * @version 1.0
  * @author  Benito Palacios Sánchez
  */
-public abstract class Figura {
+public abstract class Figura implements Comparable<Figura> {
     /** Representa la fecha cuando este objeto fue creado. */
     private final Date fechaCreacion;
     
@@ -68,4 +68,10 @@ public abstract class Figura {
      * @return Perímetro de la figura.
      */
     public abstract double getPerimetro();
+    
+    @Override
+    public int compareTo(Figura obj) {
+        Double miArea = this.getArea();
+        return miArea.compareTo(obj.getArea());
+    }
 }
