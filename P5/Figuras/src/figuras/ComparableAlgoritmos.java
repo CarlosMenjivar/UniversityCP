@@ -24,13 +24,7 @@ package figuras;
  */
 public class ComparableAlgoritmos {
     public static Figura mayor(final Figura[] figuras) {
-        Figura mayor = null;
-        for (Figura figura : figuras) {
-            if (mayor == null || figura.compareTo(mayor) == 1)
-                mayor = figura;
-        }
-        
-        return mayor;
+        return figuras[indiceDeMayor(figuras, 0)];
     }
         
     public static void ordena(final Figura[] figuras) {

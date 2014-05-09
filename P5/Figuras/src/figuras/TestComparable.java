@@ -18,6 +18,7 @@
 
 package figuras;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -37,6 +38,7 @@ public class TestComparable {
         int nFiguras  = Integer.parseInt(args[1]);
         int dimension = Integer.parseInt(args[2]);
         Figura[] figuras = generaArrayFiguras(prob, nFiguras, dimension);
+        Figura[] copia = (Figura[])figuras.clone();
         
         // Obtiene la figura mayor de todas
         Figura mayor = ComparableAlgoritmos.mayor(figuras);
@@ -48,6 +50,13 @@ public class TestComparable {
         ComparableAlgoritmos.ordena(figuras);
         System.out.println("El vector ordenado es:");
         for (Figura fig : figuras)
+            System.out.println(fig);
+        System.out.println();
+        
+        // Ordena el array de la otra forma
+        Arrays.sort(copia);
+        System.out.println("Otra forma de ordenarlos:");
+        for (Figura fig : copia)
             System.out.println(fig);
     }
     
