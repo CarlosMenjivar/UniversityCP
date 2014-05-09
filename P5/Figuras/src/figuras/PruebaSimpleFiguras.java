@@ -50,14 +50,41 @@ public class PruebaSimpleFiguras {
         
         imprime(rectangulo);
         System.out.println();
+
+        // Creo los delimitadores y los imprimo
+        Rectangulo deliCirculo = rectanguloDelimitador(circulo);
+        System.out.println("Rectángulo delimitador del circulo:");
+        imprime(deliCirculo);
+        System.out.println();
+        
+        Rectangulo deliRectangulo = rectanguloDelimitador(rectangulo);
+        System.out.println("Rectángulo delimitador del rectángulo:");
+        imprime(deliRectangulo);
+        System.out.println();
     }
     
-    public static void imprime(Figura figura) {
+    private static void imprime(Figura figura) {
         long tiempo = (new Date()).getTime() - figura.getFechaCreacion().getTime();
         
         System.out.println(figura.getClass().getSimpleName());
         System.out.println("Tiempo desde su creación: " + tiempo + " milisegundos");
         System.out.println("Área: " + figura.getArea());
         System.out.println("Perímetro: " + figura.getPerimetro());
+    }
+    
+    private static Rectangulo rectanguloDelimitador(Figura figura) {
+        Rectangulo delimitador = null;
+        
+        if (figura instanceof Rectangulo) {
+            delimitador = (Rectangulo)figura;
+        } else if (figura instanceof Circulo) {
+            Circulo circulo = (Circulo)figura;
+            delimitador = new Rectangulo(
+                    circulo.getRadio() * 2,
+                    circulo.getRadio() * 2
+            );
+        }
+        
+        return delimitador;
     }
 }
