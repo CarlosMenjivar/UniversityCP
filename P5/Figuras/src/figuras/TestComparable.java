@@ -32,10 +32,16 @@ public class TestComparable {
             return;
         }
         
+        // Obtiene un vector aleatorio de figuras
         double prob   = Double.parseDouble(args[0]);
         int nFiguras  = Integer.parseInt(args[1]);
         int dimension = Integer.parseInt(args[2]);
         Figura[] figuras = generaArrayFiguras(prob, nFiguras, dimension);
+        
+        // Obtiene la figura mayor de todas
+        Figura mayor = ComparableAlgoritmos.mayor(figuras);
+        System.out.println("La figura mayor es:");
+        System.out.println(mayor);
     }
     
     private static Figura[] generaArrayFiguras(final double prob, 
