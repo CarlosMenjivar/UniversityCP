@@ -19,14 +19,27 @@
 package figuras;
 
 /**
- *
+ * Implementa algunos algoritmos de tratamiento de elementos en vectores.
+ * 
  * @author Benito Palacios Sánchez
  */
 public class ComparableAlgoritmos {
+    /**
+     * Obtiene la figura con mayor área del vector.
+     * 
+     * @param figuras Vector de figuras para procesar.
+     * @return Figura con área mayor.
+     */
     public static Figura mayor(final Figura[] figuras) {
         return figuras[indiceDeMayor(figuras, 0)];
     }
         
+    /**
+     * Ordena los vectores de forma descendente.
+     * Implementa el algoritmo de selección.
+     * 
+     * @param figuras Vector a ordenar.
+     */
     public static void ordena(final Figura[] figuras) {
         for (int i = 0; i < figuras.length - 1; i++) {
             int mayor = indiceDeMayor(figuras, i);
@@ -37,6 +50,13 @@ public class ComparableAlgoritmos {
         }
     }
     
+    /**
+     * Calcula el índice de la figura con mayor área del vector dado.
+     * 
+     * @param figuras Vector de figuras para procesar.
+     * @param inicio Posición de inicio en el vector.
+     * @return Índice de la figura con área mayor.
+     */
     private static int indiceDeMayor(final Figura[] figuras, final int inicio) {
         int indice = -1;
         for (int i = inicio; i < figuras.length; i++) {

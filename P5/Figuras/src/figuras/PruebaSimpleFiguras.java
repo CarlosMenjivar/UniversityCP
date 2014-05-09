@@ -70,6 +70,11 @@ public class PruebaSimpleFiguras {
         System.out.println(deliCirculo.compareTo(circulo));
     }
     
+    /**
+     * Muestra información de una figura.
+     * 
+     * @param figura Figura para mostrar información.
+     */
     private static void imprime(Figura figura) {
         long tiempo = (new Date()).getTime() - figura.getFechaCreacion().getTime();
         
@@ -79,6 +84,12 @@ public class PruebaSimpleFiguras {
         System.out.println("Perímetro: " + figura.getPerimetro());
     }
     
+    /**
+     * Calcula el rectángulo que delimita a la figura dada.
+     * 
+     * @param figura Figura de entrada.
+     * @return Rectángulo delimitador.
+     */
     private static Rectangulo rectanguloDelimitador(Figura figura) {
         Rectangulo delimitador = null;
         

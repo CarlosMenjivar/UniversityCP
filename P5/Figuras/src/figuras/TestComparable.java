@@ -22,11 +22,19 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- *
+ * Conjunto de pruebas con la interfaz Comparable y métodos de ordenación
+ * y búsqueda de mayor.
+ * 
  * @author Benito Palacios Sánchez
  */
 public class TestComparable {
-    
+    /**
+     * Entrada del programa.
+     * 
+     * @param args El primer elemento es la probabilidad de que se genere un
+     * círculo. El segundo el número de figuras a generar para realizar las 
+     * pruebas y el tercero un parámetro de tamaño de las figuras creadas.
+     */
     public static void main(String[] args) {
         if (args.length != 3) {
             System.out.println("Se requieren 3 argumentos.");
@@ -60,6 +68,18 @@ public class TestComparable {
             System.out.println(fig);
     }
     
+    /**
+     * Genera un vector aleatorio de figuras.
+     * Cuando se genera un círculo su radio estará comprendido entre 0 y 
+     * dimension / 2.
+     * Cuando se genera un rectángulo sus lados estarán comprendidos entre 0
+     * y dimension
+     * 
+     * @param prob Probabilidad de que se genere un círculo en cada iteración.
+     * @param nFiguras Tamaño del vector.
+     * @param dimension Dimensión para crear las figuras.
+     * @return Vector de figuras aleatorias.
+     */
     private static Figura[] generaArrayFiguras(final double prob, 
             final int nFiguras, final int dimension) {
         Random random = new Random();
