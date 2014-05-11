@@ -11,6 +11,7 @@ comprimir.sh
 
 # Archivos finales
 P4/Diagrama.png
+P4/Entrega/
 
 # Proyectos con NetBeans
 **/build
@@ -23,3 +24,6 @@ P3/serpiente/**
 P3/Netbeans Test/**
 P4/Tests/
 P4/script
+/P5/Figuras/nbproject/private/
+/P5/Figuras/build/
+/P5/Figuras/dist/

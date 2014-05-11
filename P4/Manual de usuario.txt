@@ -1,0 +1,67 @@
+Programa TSP v1.0 ~~ por Benito Palacios Sánchez
+
+TOC:
+  Modo de empleo
+  Formato de entrada del problema
+  Formato del archivo óptimo
+
+####################
+## Modo de empleo ##
+####################
+
+TSP [h] [solucion] [ruta] [coste] [algo X]
+    [optimo archivoConSolucion] [tiempo]
+
+Opciones:
+    h:        Muestra esta ayuda.
+    
+    solucion: Muestra las coordenadas de cada ciudad en orden según la ruta.
+    
+    ruta:     Muestra el ID de cada ciudad en orden según la ruta.
+    
+    coste:    Muestra el coste de la ruta.
+    
+    algo X:   Utiliza el número de algoritmo seleccionado.
+              1: VecinoMasCercano [por defecto]
+              2: InsercionEconomica
+              3: InsercionLejana
+              4: RutaAleatoria
+              5: MejoraAleatoria
+              
+    optimo:   Introduce la solución óptima del problema para compararla.
+    
+    tiempo:   Muestra el tiempo en milisegundos que la heurística toma en
+              resolver el problema.
+
+El problema se introducirá desde la entrada estandar. El formato se describe
+a continuación.
+
+
+#####################################
+## Formato de entrada del problema ##
+#####################################
+
+El problema TSP a resolver consta de un conjunto de ciudades.
+El formato de entrada esperado consta de dos partes. En primer lugar
+se ha de indicar el número de ciudades, el formato es el siguiente:
+'DIMENSION: x' donde 'x' es el número de ciudades.
+
+A continuación se han de indicar todas las ciudades. Por cada ciudad el formato
+es el siguiente: 'ID CoordX CoordY' donde 'ID' es un número único que identifica
+a la ciudad, 'CoordX' es un tipo númerico con decimal (double) con la posición
+X de la ciudad y 'CoordY' es un tipo número con decimal (double) con la posición
+Y de la ciudad.
+
+################################
+## Formato del archivo óptimo ##
+################################
+
+Opcionalmente se puede introducir un archivo que representa la solución óptima
+del problema y con la que se comparán los algoritmos. El formato de este archivo
+consta de una cabecera con comentarios que serán omitidos. El programa comenzará
+a leer después de encontrar a una línea que empiece con "TOUR_SECTION".
+Después de esta línea se indicará el ID de cada ciudad en orden de recorrido,
+la última ciudad no tiene que ser la primera (no hay que cerrar el recorrido)
+y no se pueden repetir. Después de indicar la última ciudad se cerrará el archivo
+con el número '-1'. A partir de ese número el programa dejará de leer y se
+podrían insertar comentarios de nuevo.
