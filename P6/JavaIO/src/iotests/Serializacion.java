@@ -18,11 +18,14 @@
 
 package iotests;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -55,22 +58,32 @@ public class Serializacion {
             // Escribo las figuras
             ObjectOutputStream writer = new ObjectOutputStream(
                     new FileOutputStream("test.dat"));
-            writer.writeObject(figuras);
+            
+            // Escribe las figuras una a una
+            for (Figura fig : figuras)
+                writer.writeObject(fig);
+            
             writer.close();
-
-            // Leo las figuras
-            ObjectInputStream reader = new ObjectInputStream(
-                    new FileInputStream("test.dat"));
-            Figura[] nuevaFiguras = (Figura[])reader.readObject();
-            reader.close();
-
-            // Ordena el array de la otra forma
-            System.out.println("Figuras:");
-            for (Figura fig : nuevaFiguras)
-                System.out.println(fig);
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
+        
+        List<Figura> nuevaFiguras = new ArrayList<>();
+        ObjectInputStream reader = null;
+        try {
+            // Leo las figuras
+            reader = new ObjectInputStream(new FileInputStream("test.dat"));
+            
+            // Lee hasta que salte la excepción
+            while (true)
+                nuevaFiguras.add((Figura)reader.readObject());
+        } catch (IOException | ClassNotFoundException ex) {
+        }
+        
+        // Muestra el array
+        System.out.println("Figuras:");
+        for (Figura fig : nuevaFiguras)
+            System.out.println(fig);
     }
     
     /**
