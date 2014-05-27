@@ -131,12 +131,18 @@ public class Escenario {
         int figX = this.figura.getLocation().getCoordX();
         
         for (int x = 0; x < this.figura.getNumColumns(); x++) {
-            if (this.figura.getBloque(ultF, x).getTipo() 
-                    != TipoBloque.FIGURA)
+            int y = ultF;
+            if (this.figura.getBloque(ultF, x).getTipo() != TipoBloque.FIGURA) {
+                for (y = ultF - 1; y >= 0; y--)
+                    if (this.figura.getBloque(y, x).getTipo() == TipoBloque.FIGURA)
+                        break;
+            }
+            
+            if (y == -1)
                 continue;
             
-            if (this.escenario[ultF + figY + 1][x + figX].getTipo() == TipoBloque.FIJO ||
-                this.escenario[ultF + figY + 1][x + figX].getTipo() == TipoBloque.ESCENARIO)
+            if (this.escenario[y + figY + 1][x + figX].getTipo() == TipoBloque.FIJO ||
+                this.escenario[y + figY + 1][x + figX].getTipo() == TipoBloque.ESCENARIO)
                 return true;
         }
         
