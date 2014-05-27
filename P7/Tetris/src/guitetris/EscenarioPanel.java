@@ -65,6 +65,8 @@ public class EscenarioPanel extends javax.swing.JPanel {
     
     public void reset() {
         this.escenario.inicializa();
+        this.movimiento.start();
+        this.repaint();
     }
     
     @Override
@@ -110,6 +112,9 @@ public class EscenarioPanel extends javax.swing.JPanel {
     };
     
     private void mueveORota(Direccion direccion, boolean moverORotar) {
+        if (!this.movimiento.isRunning())
+            return;
+
         // Muevo o roto
         if (moverORotar)
             escenario.getFiguraEnMovimiento().move(direccion, 1);
