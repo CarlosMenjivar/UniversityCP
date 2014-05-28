@@ -244,6 +244,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
                     this.movimiento.stop();
                 else
                     this.movimiento.start();
+                this.frame.repaint();
                 break;
         }
     }//GEN-LAST:event_formKeyPressed

@@ -99,6 +99,17 @@ public class FiguraFactory {
         return new Figura(posicion, color, 0x0, 0x8, 0x0, 0x8, 0x0);
     }
     
+    public static Figura getChar(final Punto pos, final Color color, final char ch) {
+        switch (Character.toUpperCase(ch)) {
+            case 'A': return new Figura(pos, color, 0x4, 0xA, 0xE, 0xA, 0xA);
+            case 'P': return new Figura(pos, color, 0xE, 0xA, 0xE, 0x2, 0x2);
+            case 'S': return new Figura(pos, color, 0xE, 0x2, 0xE, 0x8, 0xE);
+            case 'U': return new Figura(pos, color, 0xA, 0xA, 0xA, 0xA, 0xE);
+        }
+        
+        return null;
+    }
+
     /**
      * Crea una figura de forma aleatoria.
      * 
