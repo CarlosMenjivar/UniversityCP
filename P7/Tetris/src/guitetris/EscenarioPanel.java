@@ -80,6 +80,10 @@ public class EscenarioPanel extends javax.swing.JPanel {
         return this.escenario;
     }
     
+    public boolean isRunning() {
+        return this.movimiento.isRunning();
+    }
+    
     public void reset() {
         this.escenario.inicializa();
         this.movimiento.start();

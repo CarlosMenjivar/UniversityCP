@@ -95,6 +95,10 @@ public class FiguraFactory {
         return new Figura(posicion, Color.RED, 0x0, 0x0, 0x2, 0x7);
     }
     
+    public static Figura getDosPuntos(final Punto posicion, final Color color) {
+        return new Figura(posicion, color, 0x0, 0x8, 0x0, 0x8, 0x0);
+    }
+    
     /**
      * Crea una figura de forma aleatoria.
      * 
