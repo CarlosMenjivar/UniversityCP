@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class Figura {
     
     private static final int SIZE_X = 4;
-    private static final int SIZE_Y = 4;
+    private static final int SIZE_Y = 5;
     
     private Bloque[][] figura;
     private Punto point;
@@ -66,11 +66,11 @@ public class Figura {
         this.shift();
     }
     
-    public static int getMaxSizeX() {
+    public static int GetInitSizeX() {
         return SIZE_X;
     }
     
-    public static int getMaxSizeY() {
+    public static int GetInitSizeY() {
         return SIZE_Y;
     }
     
@@ -80,7 +80,7 @@ public class Figura {
      * @return Número de columnas.
      */
     public int getNumColumns() {
-        return SIZE_X;
+        return this.figura[0].length;
     }
     
     /**
@@ -89,7 +89,7 @@ public class Figura {
      * @return Número de filas.
      */
     public int getNumRows() {
-        return SIZE_Y;
+        return this.figura.length;
     }
     
     /**
@@ -100,10 +100,10 @@ public class Figura {
      * @return Bloque de la figura.
      */
     public Bloque getBloque(final int r, final int c) {
-        if (r < 0 || r >= SIZE_Y)
+        if (r < 0 || r >= this.figura.length)
             throw new ArrayIndexOutOfBoundsException();
         
-        if (c < 0 || c >= SIZE_X)
+        if (c < 0 || c >= this.figura[0].length)
             throw new ArrayIndexOutOfBoundsException();
         
         return this.figura[r][c];
@@ -164,9 +164,9 @@ public class Figura {
                 } else {
                     x1 += (antSizeY - 1);
                 }
-                if (y1 >= SIZE_Y || y1 < 0)
+                if (y1 >= this.figura.length || y1 < 0)
                     System.out.println("Error en Y: " + y1);
-                if (x1 >= SIZE_X || x1 < 0)
+                if (x1 >= this.figura[0].length || x1 < 0)
                     System.out.println("Error en X: " + x1);
                 this.figura[y1][x1] = antigua[y0][x0];
             }
