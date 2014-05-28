@@ -35,7 +35,8 @@ public class Marcador extends javax.swing.JPanel {
     private static final int LongPuntos = 4;
     private static final int LongNivel  = 2;
     private static final int TamanoBloque = 5;
-    private static final Punto PosicionPuntos = new Punto(10, 10);
+    private static final Punto PosicionPuntos = new Punto(5, 10);
+    private static final Punto PosicionNivel = new Punto(26, 50);
     
     private Escenario escenario;
     
@@ -59,6 +60,9 @@ public class Marcador extends javax.swing.JPanel {
         
         int puntos = escenario.getFilasCompletas() * EscenarioPanel.GetPuntosPorFilas();
         this.paintNumber(g, puntos, LongPuntos, PosicionPuntos);
+        
+        int nivel = escenario.getFilasCompletas() / EscenarioPanel.GetFilasPorNivel();
+        this.paintNumber(g, nivel, LongNivel, PosicionNivel);
     }
     
     private void paintNumber(Graphics g, int num, int len, Punto pos) {
