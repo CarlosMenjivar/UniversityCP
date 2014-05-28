@@ -50,7 +50,7 @@ public class Escenario {
         this.sigFigura = FiguraFactory.getAleatoria(this.posInicio);
         this.filasCompletas = 0;
         
-        Bloque bloqueEsc = new Bloque(TipoBloque.ESCENARIO, Color.BLACK);
+        Bloque bloqueEsc = new Bloque(TipoBloque.ESCENARIO, new Color(99, 81, 71));
         Bloque bloqueVac = new Bloque(TipoBloque.VACIO, Color.WHITE);
         
         for (int f = 0; f < this.alto; f++) {

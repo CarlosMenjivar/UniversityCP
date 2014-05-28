@@ -39,7 +39,7 @@ import javax.swing.Timer;
 public class EscenarioPanel extends javax.swing.JPanel {
 
     private static final Color BgColor = Color.WHITE;
-    private static final int TamanoCelda = 15;
+    private static final int TamanoCelda = 10;
     private static final int FilasPorNivel = 5;
     private static final int PuntosPorFila = 7;
     
@@ -47,6 +47,14 @@ public class EscenarioPanel extends javax.swing.JPanel {
     private final Timer movimiento;
     private final Escenario escenario;
     private int nivel;
+    
+    public EscenarioPanel() {
+        initComponents();
+       
+        this.escenario = null;
+        this.movimiento = null;
+        this.frame = null;
+    }
     
     public EscenarioPanel(final Frame frame) {
         initComponents();
@@ -82,6 +90,9 @@ public class EscenarioPanel extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        if (this.escenario == null)
+            return;
+        
         // Pinta el fondo
         g.setColor(BgColor);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());

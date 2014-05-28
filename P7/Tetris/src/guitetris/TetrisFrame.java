@@ -5,6 +5,8 @@
  */
 package guitetris;
 
+import java.awt.Color;
+
 /**
  *
  * @author benito
@@ -16,6 +18,7 @@ public class TetrisFrame extends javax.swing.JFrame {
      */
     public TetrisFrame() {
         initComponents();
+        this.getContentPane().setBackground(Color.black);
         this.marcador1.setEscenario(this.escenarioPanel1.getEscenario());
     }
 
@@ -37,7 +40,6 @@ public class TetrisFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Er Tatris");
-        setBackground(new java.awt.Color(0, 0, 0));
         setResizable(false);
 
         javax.swing.GroupLayout escenarioPanel1Layout = new javax.swing.GroupLayout(escenarioPanel1);
@@ -96,7 +98,7 @@ public class TetrisFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(escenarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(marcador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
