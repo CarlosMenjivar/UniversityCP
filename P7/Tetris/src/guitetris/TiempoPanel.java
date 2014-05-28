@@ -64,6 +64,11 @@ public class TiempoPanel extends javax.swing.JPanel {
         this.escenarioPanel = escenarioPanel;
     }
     
+    public void reset() {
+        this.tiempo = 0;
+        this.repaint();
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

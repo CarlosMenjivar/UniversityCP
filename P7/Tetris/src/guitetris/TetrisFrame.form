@@ -38,7 +38,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Er Tatris"/>
+    <Property name="title" type="java.lang.String" value="Legosutra"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -66,10 +66,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="tiempoPanel1" pref="125" max="32767" attributes="0"/>
                   <Component id="marcador1" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="figuraPanel1" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="figuraPanel1" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
