@@ -23,6 +23,7 @@ public class TetrisFrame extends javax.swing.JFrame {
         this.figuraPanel1.setEscenario(this.escenarioPanel1.getEscenario());
         this.tiempoPanel1.setEscenarioPanel(escenarioPanel1);
         this.pausaPanel1.setEscenarioPanel(escenarioPanel1);
+        Audio.PlayClipLoop("Tetris.wav", 264600, -1);
     }
 
     /**
@@ -47,6 +48,11 @@ public class TetrisFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Legosutra");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         javax.swing.GroupLayout escenarioPanel1Layout = new javax.swing.GroupLayout(escenarioPanel1);
         escenarioPanel1.setLayout(escenarioPanel1Layout);
@@ -174,6 +180,10 @@ public class TetrisFrame extends javax.swing.JFrame {
         this.escenarioPanel1.reset();
         this.tiempoPanel1.reset();
     }//GEN-LAST:event_newItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Audio.Stop();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
