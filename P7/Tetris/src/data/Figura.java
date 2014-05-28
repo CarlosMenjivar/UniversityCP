@@ -63,7 +63,7 @@ public class Figura {
         }
         
         // Desplaza la figura para asegurarnos de que está en el borde inferior.
-        this.shift();
+        //this.shift();
     }
     
     public static int GetInitSizeX() {

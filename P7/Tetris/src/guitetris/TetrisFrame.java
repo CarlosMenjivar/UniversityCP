@@ -16,6 +16,7 @@ public class TetrisFrame extends javax.swing.JFrame {
      */
     public TetrisFrame() {
         initComponents();
+        this.marcador1.setEscenario(this.escenarioPanel1.getEscenario());
     }
 
     /**
@@ -27,7 +28,8 @@ public class TetrisFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escenarioPanel1 = new guitetris.EscenarioPanel();
+        escenarioPanel1 = new EscenarioPanel(this);
+        marcador1 = new guitetris.Marcador();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         newItem = new javax.swing.JMenuItem();
@@ -35,6 +37,7 @@ public class TetrisFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Er Tatris");
+        setBackground(new java.awt.Color(0, 0, 0));
         setResizable(false);
 
         javax.swing.GroupLayout escenarioPanel1Layout = new javax.swing.GroupLayout(escenarioPanel1);
@@ -46,6 +49,17 @@ public class TetrisFrame extends javax.swing.JFrame {
         escenarioPanel1Layout.setVerticalGroup(
             escenarioPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout marcador1Layout = new javax.swing.GroupLayout(marcador1);
+        marcador1.setLayout(marcador1Layout);
+        marcador1Layout.setHorizontalGroup(
+            marcador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        marcador1Layout.setVerticalGroup(
+            marcador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         fileMenu.setMnemonic('F');
@@ -80,15 +94,15 @@ public class TetrisFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(escenarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escenarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(marcador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(escenarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(escenarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(marcador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -143,6 +157,7 @@ public class TetrisFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar jMenuBar1;
+    private guitetris.Marcador marcador1;
     private javax.swing.JMenuItem newItem;
     // End of variables declaration//GEN-END:variables
 }

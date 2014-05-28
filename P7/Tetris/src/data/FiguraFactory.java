@@ -116,4 +116,22 @@ public class FiguraFactory {
         
         return null;
     }
+    
+    public static Figura getNumber(final Punto pos, final Color color,
+            final int number) {
+        switch (number) {
+            case 0: return new Figura(pos, color, 0xE, 0xA, 0xA, 0xA, 0xE);
+            case 1: return new Figura(pos, color, 0x8, 0x8, 0x8, 0x8, 0x8);
+            case 2: return new Figura(pos, color, 0xE, 0x8, 0xE, 0x2, 0xE);
+            case 3: return new Figura(pos, color, 0xE, 0x8, 0xE, 0x8, 0xE);
+            case 4: return new Figura(pos, color, 0xA, 0xA, 0xE, 0x8, 0x8);
+            case 5: return new Figura(pos, color, 0xE, 0x8, 0xE, 0x2, 0xE);
+            case 6: return new Figura(pos, color, 0xE, 0x2, 0xE, 0xA, 0xE);
+            case 7: return new Figura(pos, color, 0xE, 0x8, 0x8, 0x8, 0x8);
+            case 8: return new Figura(pos, color, 0xE, 0xA, 0xE, 0xA, 0xE);
+            case 9: return new Figura(pos, color, 0xE, 0xA, 0xE, 0x8, 0x8);
+        }
+        
+        return null;
+    }
 }

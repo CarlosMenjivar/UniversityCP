@@ -23,6 +23,7 @@ import data.Direccion;
 import data.Escenario;
 import data.TipoBloque;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -38,17 +39,16 @@ import javax.swing.Timer;
 public class EscenarioPanel extends javax.swing.JPanel {
 
     private static final Color BgColor = Color.WHITE;
-    private static final int TamanoCelda = 10;
-    private static final int FilasPorNivel = 10;
+    private static final int TamanoCelda = 15;
+    private static final int FilasPorNivel = 5;
+    private static final int PuntosPorFila = 7;
     
+    private final Frame frame;
     private final Timer movimiento;
-    private Escenario escenario;
+    private final Escenario escenario;
     private int nivel;
     
-    /**
-     * Creates new form EscenarioPanel
-     */
-    public EscenarioPanel() {
+    public EscenarioPanel(final Frame frame) {
         initComponents();
        
         this.escenario = new Escenario(
@@ -57,8 +57,17 @@ public class EscenarioPanel extends javax.swing.JPanel {
         this.nivel = 0;
         this.movimiento = new Timer(nivel2delay(this.nivel), movimientoAction);
         this.movimiento.start();
+        this.frame = frame;
     }
 
+    public static int GetFilasPorNivel() {
+        return FilasPorNivel;
+    }
+    
+    public static int GetPuntosPorFilas() {
+        return PuntosPorFila;
+    }
+    
     public Escenario getEscenario() {
         return this.escenario;
     }
@@ -66,7 +75,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
     public void reset() {
         this.escenario.inicializa();
         this.movimiento.start();
-        this.repaint();
+        this.frame.repaint();
     }
     
     @Override
@@ -128,6 +137,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
                 escenario.getFiguraEnMovimiento().move(direccion.getContrario(), 1);
             else
                 escenario.getFiguraEnMovimiento().rotate(direccion.getContrario());
+            this.frame.repaint();
             return;
         }
         
@@ -139,7 +149,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
             // Compruebo si se ha perdido porque la nueva figura no se
             // pueda mover
             if (escenario.isFiguraEnFondo()) {
-                this.repaint();
+                this.frame.repaint();
                 JOptionPane.showMessageDialog(
                         null,
                         "GameOver",
@@ -156,7 +166,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
         }
 
         // Actualizo el panel
-        repaint();    
+        this.frame.repaint();    
     }
     
     /**
