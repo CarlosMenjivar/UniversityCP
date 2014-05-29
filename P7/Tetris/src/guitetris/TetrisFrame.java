@@ -19,6 +19,7 @@
 package guitetris;
 
 import java.awt.Color;
+import java.io.File;
 
 /**
  * Componente de juego del Tetris.
@@ -39,7 +40,9 @@ public class TetrisFrame extends javax.swing.JFrame {
         this.tiempoPanel1.setEscenarioPanel(escenarioPanel1);
         this.pausaPanel1.setEscenarioPanel(escenarioPanel1);
         
-        Audio.PlayClipLoop("Tetris.wav", 264600, -1);
+        File audioFile = new File("Tetris.wav");
+        if (audioFile.exists() && !audioFile.isDirectory())
+            Audio.PlayClipLoop("Tetris.wav", 264600, -1);
     }
 
     /**
