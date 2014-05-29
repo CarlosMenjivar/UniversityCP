@@ -18,8 +18,6 @@ package guitetris;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -30,19 +28,30 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- *
+ * Clase para reproducir archivos de audio (.wav).
+ * 
  * @author http://stackoverflow.com/a/577926
  */
 public class Audio {
 
     private static Thread CurrentClip;
     
+    /**
+     * Reproduce un archivo en bucle entre las posiciones dadas.
+     * 
+     * @param filePath Ruta al archivo.
+     * @param start Frame de inicio de bucle.
+     * @param end Frame final del bucle.
+     */
     public static void PlayClipLoop(String filePath, int start, int end) {
         PlayClipLoop clip = new PlayClipLoop(filePath, start, end);
         CurrentClip = clip;
         clip.start();
     }
     
+    /**
+     * Para la reproducir del audio.
+     */
     public static void Stop() {
         if (CurrentClip != null && CurrentClip.isAlive()) {
             CurrentClip.interrupt();
@@ -50,6 +59,9 @@ public class Audio {
         }
     }
     
+    /**
+     * Hebra encargada de reproducir en bucle un audio.
+     */
     private static class PlayClipLoop extends Thread {
         
         private final File clipFile;
@@ -58,8 +70,14 @@ public class Audio {
         
         private AudioListener listener;
         private Line line;
-        private boolean cancel = false;
         
+        /**
+         * Crea una nueva instancia de la hebra.
+         * 
+         * @param filePath Ruta al archivo.
+         * @param start Frame de inicio del bucle.
+         * @param end Frame de fin de bucle.
+         */
         public PlayClipLoop(String filePath, int start, int end) {
             this.clipFile = new File(filePath);
             this.start = start;
@@ -88,7 +106,6 @@ public class Audio {
         
         @Override
         public void interrupt() {
-            this.cancel = true;
             if (this.line != null && this.line.isOpen() && this.listener != null)
                 this.listener.update(
                         new LineEvent(this.line, Type.STOP, AudioSystem.NOT_SPECIFIED)
@@ -97,6 +114,9 @@ public class Audio {
         } 
     }
     
+    /**
+     * Callbacks para la reproducción de audio.
+     */
     private static class AudioListener implements LineListener {
 
         private boolean done = false;

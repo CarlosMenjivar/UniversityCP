@@ -1,28 +1,44 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Benito Palacios Sánchez
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package guitetris;
 
 import java.awt.Color;
 
 /**
- *
- * @author benito
+ * Componente de juego del Tetris.
+ * 
+ * @author Benito Palacios Sánchez
  */
 public class TetrisFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form TetrisFrame
+     * Crea un nuevo componente.
      */
     public TetrisFrame() {
         initComponents();
         this.getContentPane().setBackground(Color.black);
+        
         this.marcador1.setEscenario(this.escenarioPanel1.getEscenario());
         this.figuraPanel1.setEscenario(this.escenarioPanel1.getEscenario());
         this.tiempoPanel1.setEscenarioPanel(escenarioPanel1);
         this.pausaPanel1.setEscenarioPanel(escenarioPanel1);
+        
         Audio.PlayClipLoop("Tetris.wav", 264600, -1);
     }
 
@@ -174,6 +190,7 @@ public class TetrisFrame extends javax.swing.JFrame {
 
     private void exitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitItemActionPerformed
         System.exit(0);
+        Audio.Stop();
     }//GEN-LAST:event_exitItemActionPerformed
 
     private void newItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newItemActionPerformed
@@ -186,7 +203,9 @@ public class TetrisFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     /**
-     * @param args the command line arguments
+     * Inicia el juego.
+     * 
+     * @param args Ninguno.
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

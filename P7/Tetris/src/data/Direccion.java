@@ -28,6 +28,11 @@ public enum Direccion {
     IZQUIERDA,
     DERECHA;
     
+    /**
+     * Obtiene la dirección contraria a la actual.
+     * 
+     * @return Dirección contraria.
+     */
     public Direccion getContrario() {
         switch (this) {
             case ABAJO: return ARRIBA;

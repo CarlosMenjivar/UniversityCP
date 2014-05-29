@@ -95,10 +95,26 @@ public class FiguraFactory {
         return new Figura(posicion, Color.RED, 0x0, 0x0, 0x2, 0x7);
     }
     
+    /**
+     * Crea una figura con forma de dos puntos (:).
+     * 
+     * @param posicion Posición de la figura.
+     * @param color Color de la figura.
+     * @return Nueva figura.
+     */
     public static Figura getDosPuntos(final Punto posicion, final Color color) {
         return new Figura(posicion, color, 0x0, 0x8, 0x0, 0x8, 0x0);
     }
     
+    /**
+     * Crea una nueva figura con forma de la letra dada.
+     * Implementado sólo 'P', 'A', 'S', 'U', 'E'.
+     * 
+     * @param pos Posición de la figura.
+     * @param color Color de la figura.
+     * @param ch Caracter a representar.
+     * @return Nueva figura.
+     */
     public static Figura getChar(final Punto pos, final Color color, final char ch) {
         switch (Character.toUpperCase(ch)) {
             case 'A': return new Figura(pos, color, 0x4, 0xA, 0xE, 0xA, 0xA);
@@ -132,6 +148,14 @@ public class FiguraFactory {
         return null;
     }
     
+    /**
+     * Crea una figura con forma de número.
+     * 
+     * @param pos Posición de la figura.
+     * @param color Color de la figura.
+     * @param number Número a representar.
+     * @return Nueva figura.
+     */
     public static Figura getNumber(final Punto pos, final Color color,
             final int number) {
         switch (number) {

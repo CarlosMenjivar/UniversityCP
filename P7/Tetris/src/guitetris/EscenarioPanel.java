@@ -37,17 +37,34 @@ import javax.swing.Timer;
  * @author Benito Palacios Sánchez
  */
 public class EscenarioPanel extends javax.swing.JPanel {
-
+    /** Color de fondo. */
     private static final Color BgColor = Color.WHITE;
+    
+    /** Tamaño en pixels de un bloque. */
     private static final int TamanoCelda = 10;
+    
+    /** Número de filas por nivel. */
     private static final int FilasPorNivel = 5;
+    
+    /** Número de puntos por fila. */
     private static final int PuntosPorFila = 7;
     
+    /** Frame que lo contiene. */
     private final Frame frame;
+    
+    /** Timer para desplazar la figura. */
     private final Timer movimiento;
+    
+    /** El escenario actual. */
     private final Escenario escenario;
+    
+    /** El nivel actual. */
     private int nivel;
     
+    /**
+     * Crea un escenario vacío e inválido.
+     * Constructor para evitar problemas con el diseñador.
+     */
     public EscenarioPanel() {
         initComponents();
        
@@ -56,6 +73,11 @@ public class EscenarioPanel extends javax.swing.JPanel {
         this.frame = null;
     }
     
+    /**
+     * Crea un escenario a partir del tamaño actual.
+     * 
+     * @param frame Frame que contiene este componente.
+     */
     public EscenarioPanel(final Frame frame) {
         initComponents();
        
@@ -68,22 +90,45 @@ public class EscenarioPanel extends javax.swing.JPanel {
         this.frame = frame;
     }
 
+    /**
+     * Obtiene la cantidad de filas necesarias para subir de nivel.
+     * 
+     * @return Número de filas por nivel.
+     */
     public static int GetFilasPorNivel() {
         return FilasPorNivel;
     }
     
+    /**
+     * Obtiene la cantidad de puntos por cada fila completada.
+     * 
+     * @return Número de puntos por fila.
+     */
     public static int GetPuntosPorFilas() {
         return PuntosPorFila;
     }
     
+    /**
+     * Obtiene el escenario representado.
+     * 
+     * @return Escenario.
+     */
     public Escenario getEscenario() {
         return this.escenario;
     }
     
+    /**
+     * Indica si el escenario está en pausa.
+     * 
+     * @return Indica si el escenario está en pausa.
+     */
     public boolean isRunning() {
         return this.movimiento.isRunning();
     }
     
+    /**
+     * Reinicia el escenario (nueva partida).
+     */
     public void reset() {
         this.escenario.inicializa();
         this.movimiento.start();
@@ -101,6 +146,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
         g.setColor(BgColor);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         
+        // Pinta cada bloque del escenario.
         for (int f = 0; f < this.escenario.getAlto(); f++) {
             for (int c = 0; c < this.escenario.getAncho(); c++) {
                 Bloque bloque = this.escenario.getBloque(f, c);
@@ -121,6 +167,12 @@ public class EscenarioPanel extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Convierte de nivel a delay del timer.
+     * 
+     * @param nivel Nivel del juego.
+     * @return Delay en milisegundos.
+     */
     private int nivel2delay(int nivel) {
         nivel = (nivel < 0) ? 0 : nivel;
         nivel = (nivel > 10) ? 10 : nivel;
@@ -128,6 +180,9 @@ public class EscenarioPanel extends javax.swing.JPanel {
         return 700 - 65 * nivel;
     }
     
+    /**
+     * Callback del timer. Mueve la figura hacia abajo.
+     */
     private final AbstractAction movimientoAction = new AbstractAction() {   
         @Override
         public void actionPerformed(ActionEvent ae) {            
@@ -135,6 +190,12 @@ public class EscenarioPanel extends javax.swing.JPanel {
         }
     };
     
+    /**
+     * Mueve o rota una figura.
+     * 
+     * @param direccion Dirección del movimiento.
+     * @param moverORotar Determinar si la figura se mueve o se rota.
+     */
     private void mueveORota(Direccion direccion, boolean moverORotar) {
         if (!this.movimiento.isRunning())
             return;
@@ -244,7 +305,7 @@ public class EscenarioPanel extends javax.swing.JPanel {
                     this.movimiento.stop();
                 else
                     this.movimiento.start();
-                this.frame.repaint();
+                this.frame.repaint();   // Necesario para el mensaje de pausa.
                 break;
         }
     }//GEN-LAST:event_formKeyPressed

@@ -36,6 +36,12 @@ public class Escenario {
     
     private int filasCompletas;
     
+    /**
+     * Crea una nueva instancia a partir de las dimensiones.
+     * 
+     * @param ancho Ancho del escenario en número de bloques.
+     * @param alto Alto del escenario en número de bloques.
+     */
     public Escenario(final int ancho, final int alto) {
         this.ancho = ancho;
         this.alto  = alto;
@@ -45,6 +51,9 @@ public class Escenario {
         this.inicializa();
     }
     
+    /**
+     * Inicializa el escenario. 
+     */
     public void inicializa() {
         this.figura    = FiguraFactory.getAleatoria(this.posInicio);
         this.sigFigura = FiguraFactory.getAleatoria(this.posInicio);
@@ -65,18 +74,40 @@ public class Escenario {
         }
     }
     
+    /**
+     * Obtiene el ancho del escenario.
+     * 
+     * @return Ancho del escenario.
+     */
     public int getAncho() {
         return this.ancho;
     }
     
+    /**
+     * Obtiene el alto del escenario.
+     * 
+     * @return Alto del escenario.
+     */
     public int getAlto() {
         return this.alto;
     }
     
+    /**
+     * Obtiene el número de filas completas.
+     * 
+     * @return Número de filas completas.
+     */
     public int getFilasCompletas() {
         return this.filasCompletas;
     }
     
+    /**
+     * Obtiene un bloque del escenario.
+     * 
+     * @param f Número de la fila.
+     * @param c Número de la columna.
+     * @return Bloque en dicha posición.
+     */
     public Bloque getBloque(final int f, final int c) {
         if (f < 0 || f >= this.alto)
             throw new ArrayIndexOutOfBoundsException();
@@ -87,6 +118,8 @@ public class Escenario {
         Punto figPos = this.figura.getLocation();
         int figAncho = this.figura.getNumColumns();
         int figAlto  = this.figura.getNumRows();
+        
+        // Si está la figura en esa posición devolver la posición de la figura
         if ((c >= figPos.getCoordX() && c < figPos.getCoordX() + figAncho) &&
                 (f >= figPos.getCoordY() && f < figPos.getCoordY() + figAlto)) {
             
@@ -94,20 +127,35 @@ public class Escenario {
             if (bloque.getTipo() != TipoBloque.VACIO)
                 return bloque;
             else
-                return this.escenario[f][c];
+                return this.escenario[f][c];    // Excepto si está vacío.
         } else {
             return this.escenario[f][c];
         }
     }
     
+    /**
+     * Obtiene la figura que se está moviendo actualmente.
+     * 
+     * @return Figura en movimiento.
+     */
     public Figura getFiguraEnMovimiento() {
         return this.figura;
     }
     
+    /**
+     * Obtiene la siguiente figura en movimiento.
+     * 
+     * @return Siguiente figura en movimiento.
+     */
     public Figura getFiguraSiguiente() {
         return this.sigFigura;
     }
     
+    /**
+     * Comprueba si la posición actual de la figura es válida o no.
+     * 
+     * @return Si la posición de la figura es válida.
+     */
     public boolean isPosicionFiguraValida() {
         int figX = this.figura.getLocation().getCoordX();
         int figY = this.figura.getLocation().getCoordY();
@@ -125,11 +173,17 @@ public class Escenario {
         return true;
     }
     
+    /**
+     * Comprueba si la posición actual de la figura está tocando los bloques fijos.
+     * 
+     * @return Si la posición de la figura toca el fondo.
+     */
     public boolean isFiguraEnFondo() {
         int ultF = this.figura.getNumRows() - 1;
         int figY = this.figura.getLocation().getCoordY();
         int figX = this.figura.getLocation().getCoordX();
         
+        // Obtiene la última fila no vacía de la figura.
         for (int x = 0; x < this.figura.getNumColumns(); x++) {
             int y = ultF;
             if (this.figura.getBloque(ultF, x).getTipo() != TipoBloque.FIGURA) {
@@ -149,6 +203,9 @@ public class Escenario {
         return false;
     }
     
+    /**
+     * Fija la figura actual en movimiento al escenario y crea la siguiente figura.
+     */
     public void fijaFigura() {
         // Copia los bloques de la figura como fijos
         int figX = this.figura.getLocation().getCoordX();
@@ -170,6 +227,9 @@ public class Escenario {
         this.eliminaFilasCompletas();
     }
     
+    /**
+     * Elimina las filas completas. 
+     */
     private void eliminaFilasCompletas() {
         for (int y = this.alto - 1 - 1; y >= 0; y--) {
             // Comprueba si ya no hay más bloques fijos.
@@ -190,6 +250,12 @@ public class Escenario {
         }
     }
     
+    /**
+     * Determina si la fila dada está completa.
+     * 
+     * @param f Fila a analizar.
+     * @return Si la fila está completa.
+     */
     private boolean estaCompleta(final int f) {
         for (int x = 2; x < this.ancho - 2; x++)
             if (this.escenario[f][x].getTipo() != TipoBloque.FIJO)
@@ -198,6 +264,12 @@ public class Escenario {
         return true;
     }
     
+    /**
+     * Determina si la fila está vacía.
+     * 
+     * @param f Fila a analizar.
+     * @return Si la fila está vacía.
+     */
     private boolean estaVacia(final int f) {
         for (int x = 2; x < this.ancho - 2; x++)
             if (this.escenario[f][x].getTipo() != TipoBloque.VACIO)
@@ -206,6 +278,11 @@ public class Escenario {
         return true;
     }
     
+    /**
+     * Desplaza el escenario hacia abajo partiendo de una fila.
+     * 
+     * @param f Fila de la que se parte.
+     */
     private void desplaza(final int f) {
         for (int y = f; y > 0; y--)
             System.arraycopy(this.escenario[y - 1], 2, this.escenario[y], 2, this.ancho - 2 - 2);

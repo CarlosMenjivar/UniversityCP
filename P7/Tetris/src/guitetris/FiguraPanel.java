@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 benito
+ * Copyright (C) 2014 Benito Palacios Sánchez
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,8 +27,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- *
- * @author benito
+ * Componente que muestra la siguiente figura en movimiento.
+ * 
+ * @author Benito Palacios Sánchez
  */
 public class FiguraPanel extends javax.swing.JPanel {
 
@@ -38,12 +39,17 @@ public class FiguraPanel extends javax.swing.JPanel {
     private Escenario escenario;
     
     /**
-     * Creates new form FiguraPanel
+     * Crea un nuevo componente.
      */
     public FiguraPanel() {
         initComponents();
     }
 
+    /**
+     * Establece el escenario.
+     * 
+     * @param escenario Escenario.
+     */
     public void setEscenario(final Escenario escenario) {
         this.escenario = escenario;
     }
@@ -59,6 +65,13 @@ public class FiguraPanel extends javax.swing.JPanel {
             this.paintFigura(g, escenario.getFiguraSiguiente(), PosicionFigura);
     }
     
+    /**
+     * Pinta una figura.
+     * 
+     * @param g Utilidad de gráficos.
+     * @param fig Figura a pintar.
+     * @param pos Posición de la figura.
+     */
     private void paintFigura(Graphics g, Figura fig, Punto pos) {
         for (int c = 0; c < fig.getNumColumns(); c++) {
             for (int f = 0; f < fig.getNumRows(); f++) {

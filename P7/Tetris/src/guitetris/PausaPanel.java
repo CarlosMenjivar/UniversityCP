@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 benito
+ * Copyright (C) 2014 Benito Palacios Sánchez
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,8 +27,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- *
- * @author benito
+ * Componente para mostrar cuando está en PAUSA.
+ * 
+ * @author Benito Palacios Sánchez.
  */
 public class PausaPanel extends javax.swing.JPanel {
 
@@ -38,12 +39,17 @@ public class PausaPanel extends javax.swing.JPanel {
     private EscenarioPanel escenarioPanel;
     
     /**
-     * Creates new form PausaPanel
+     * Crea un nuevo componente.
      */
     public PausaPanel() {
         initComponents();
     }
 
+    /**
+     * Establece el escenario actual.
+     * 
+     * @param escenarioPanel Escenario.
+     */
     public void setEscenarioPanel(final EscenarioPanel escenarioPanel) {
         this.escenarioPanel = escenarioPanel;
     }
@@ -52,21 +58,37 @@ public class PausaPanel extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
                
+        // Pinta el fondo.
         g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+        // Pinta el mensaje.
         if (this.escenarioPanel != null && !this.escenarioPanel.isRunning())
             this.paintString(g, "PAUSA", Posicion);
     }
     
+    /**
+     * Pinta una cadena de caracteres.
+     * 
+     * @param g Utilidad de gráficos.
+     * @param str Cadena de caracteres a pintar.
+     * @param pos Posición a pintarla.
+     */
     private void paintString(Graphics g, String str, Punto pos) {
         for (int i = 0; i < str.length(); i++) {
             Punto figPos  = pos.offset((TamanoBloque * Figura.GetInitSizeX() + 1) * i, 0);
             Figura figura = FiguraFactory.getChar(figPos, Color.red, str.charAt(i));
-            this.paintFigura(g, figura);
+            if (figura != null)
+                this.paintFigura(g, figura);
         }
     }
     
+    /**
+     * Pinta una figura.
+     * 
+     * @param g Utilidad de gráficos.
+     * @param fig Figura a pintar.
+     */
     private void paintFigura(Graphics g, Figura fig) {
         Punto pos = fig.getLocation();
         for (int c = 0; c < fig.getNumColumns(); c++) {

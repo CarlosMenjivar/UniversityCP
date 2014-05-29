@@ -61,15 +61,22 @@ public class Figura {
                 }
             }
         }
-        
-        // Desplaza la figura para asegurarnos de que está en el borde inferior.
-        //this.shift();
     }
     
+    /**
+     * Obtiene el número de columnas de inicio (sin rotación).
+     * 
+     * @return Número de columnas.
+     */
     public static int GetInitSizeX() {
         return SIZE_X;
     }
     
+    /**
+     * Obtiene el número de filas de inicio (sin rotación).
+     * 
+     * @return Número de filas.
+     */
     public static int GetInitSizeY() {
         return SIZE_Y;
     }

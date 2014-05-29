@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 benito
+ * Copyright (C) 2014 Benito Palacios Sánchez
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,8 +28,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- *
- * @author benito
+ * Componente con la cuenta de puntos y niveles.
+ * 
+ * @author Benito Palacios Sánchez
  */
 public class Marcador extends javax.swing.JPanel {  
     private static final int LongPuntos = 4;
@@ -41,12 +42,17 @@ public class Marcador extends javax.swing.JPanel {
     private Escenario escenario;
     
     /**
-     * Creates new form Marcador
+     * Crea un nuevo componente.
      */
     public Marcador() {
         initComponents();
     }
 
+    /**
+     * Establece el escenario.
+     * 
+     * @param escenario Escenario.
+     */
     public void setEscenario(final Escenario escenario) {
         this.escenario = escenario;
     }
@@ -58,13 +64,23 @@ public class Marcador extends javax.swing.JPanel {
         if (escenario == null)
             return;
         
+        // Pinta los puntos.
         int puntos = escenario.getFilasCompletas() * EscenarioPanel.GetPuntosPorFilas();
         this.paintNumber(g, puntos, LongPuntos, PosicionPuntos);
         
+        // Pinta el nivel
         int nivel = escenario.getFilasCompletas() / EscenarioPanel.GetFilasPorNivel();
         this.paintNumber(g, nivel, LongNivel, PosicionNivel);
     }
     
+    /**
+     * Pinta un número como figura.
+     * 
+     * @param g Utilidad para pintar.
+     * @param num Número a pintar.
+     * @param len Número de cifras a pintar.
+     * @param pos Posición del número.
+     */
     private void paintNumber(Graphics g, int num, int len, Punto pos) {
         for (int i = 0; i < len; i++) {
             double factor = (int)Math.pow(10, len - (i + 1));
@@ -77,6 +93,12 @@ public class Marcador extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Pinta una figura.
+     * 
+     * @param g Utilidad de gráficos.
+     * @param fig Figura a pintar.
+     */
     private void paintFigura(Graphics g, Figura fig) {
         Punto pos = fig.getLocation();
         for (int c = 0; c < fig.getNumColumns(); c++) {

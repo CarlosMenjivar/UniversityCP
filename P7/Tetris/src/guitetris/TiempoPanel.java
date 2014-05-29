@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 benito
+ * Copyright (C) 2014 Benito Palacios Sánchez
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -32,8 +32,9 @@ import java.util.GregorianCalendar;
 import javax.swing.Timer;
 
 /**
- *
- * @author benito
+ * Muestra el tiempo de juego.
+ * 
+ * @author Benito Palacios Sánchez
  */
 public class TiempoPanel extends javax.swing.JPanel {
     private static final int TamanoBloque = 4;
@@ -48,10 +49,12 @@ public class TiempoPanel extends javax.swing.JPanel {
     private int tiempo = 0;
     
     /**
-     * Creates new form TiempoPanel
+     * Crea el componente.
      */
     public TiempoPanel() {
         initComponents();
+        
+        // Cada 1000 ms aumenta la cantidad.
         this.timer = new Timer(1000, new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) { 
                 tiempo++;
@@ -60,10 +63,18 @@ public class TiempoPanel extends javax.swing.JPanel {
         });
     }
 
+    /**
+     * Establece el componente que representa el escenario.
+     * 
+     * @param escenarioPanel Componente del escenario.
+     */
     public void setEscenarioPanel(final EscenarioPanel escenarioPanel) {
         this.escenarioPanel = escenarioPanel;
     }
     
+    /**
+     * Reinicia el contador.
+     */
     public void reset() {
         this.tiempo = 0;
         this.repaint();
@@ -76,14 +87,17 @@ public class TiempoPanel extends javax.swing.JPanel {
         if (this.escenarioPanel == null)
             return;
         
+        // Comprueba el estado del juego.
         if (!this.escenarioPanel.isRunning())
             this.timer.stop();
         else if (!this.timer.isRunning())
             this.timer.start();
         
+        // Obtiene el tiempo pasado (milisegundos -> fecha).
         GregorianCalendar calen = new GregorianCalendar(0, 0, 0);
         calen.add(Calendar.SECOND, tiempo);
         
+        // Pinta el tiempo
         this.paintFigura(g, FiguraFactory.getDosPuntos(PosicionPuntosH, Color.yellow));
         this.paintNumber(g, calen.get(Calendar.HOUR), 2, PosicionHora);
         this.paintFigura(g, FiguraFactory.getDosPuntos(PosicionPuntosM, Color.yellow));
@@ -91,6 +105,14 @@ public class TiempoPanel extends javax.swing.JPanel {
         this.paintNumber(g, calen.get(Calendar.SECOND), 2, PosicionSegundos);
     }
     
+    /**
+     * Pinta un número.
+     * 
+     * @param g Utilidad de gráficos.
+     * @param num Número a pintar.
+     * @param len Número de cifras del número.
+     * @param pos Posición del número.
+     */
     private void paintNumber(Graphics g, int num, int len, Punto pos) {
         for (int i = 0; i < len; i++) {
             double factor = (int)Math.pow(10, len - (i + 1));
@@ -103,6 +125,12 @@ public class TiempoPanel extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Pinta una figura.
+     * 
+     * @param g Utilidad de gráficos.
+     * @param fig Figura a pintar.
+     */
     private void paintFigura(Graphics g, Figura fig) {
         Punto pos = fig.getLocation();
         for (int c = 0; c < fig.getNumColumns(); c++) {
